@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { Base, WSManMessageCreator } from '../WSMan'
-import { Classes, Actions } from './'
-import type { Types } from './'
 import type { Selector } from '../WSMan'
+import { Base, WSManMessageCreator } from '../WSMan'
+import type { Types } from './'
+import { Actions, Classes } from './'
 
 class BIOSElement extends Base {
   className = Classes.BIOS_ELEMENT
@@ -40,6 +40,17 @@ class BootService extends Base {
     const body = `<Body><h:SetBootConfigRole_INPUT xmlns:h="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_BootService"><h:BootConfigSetting><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_BootConfigSetting</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="InstanceID">${bootSource}</Selector></SelectorSet></ReferenceParameters></h:BootConfigSetting><h:Role>${role}</h:Role></h:SetBootConfigRole_INPUT></Body>`
     return this.wsmanMessageCreator.createXml(header, body)
   }
+
+  /**
+   * Requests that the state of the element be changed to the value specified in the RequestedState parameter. When the requested state change takes place, the EnabledState and RequestedState of the element will be the same. Invoking the RequestStateChange method multiple times could result in earlier requests being overwritten or lost. If 0 is returned, then the task completed successfully and the use of ConcreteJob was not required. If 4096 (0x1000) is returned, then the task will take some time to complete, ConcreteJob will be created, and its reference returned in the output parameter Job. Any other return code indicates an error condition.
+   * @param requestedState The state requested for the element. This information will be placed into the RequestedState property of the instance if the return code of the RequestStateChange method is 0 ('Completed with No Error'), or 4096 (0x1000) ('Job Started'). Refer to the description of the EnabledState and RequestedState properties for the detailed explanations of the RequestedState values.
+   * @returns string
+   */
+  RequestStateChange = (requestedState: Types.BootService.RequestedState): string =>
+    this.protectedRequestStateChange(
+      `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${this.className}/RequestStateChange`,
+      requestedState
+    )
 }
 class BootSourceSetting extends Base {
   className = Classes.BOOT_SOURCE_SETTING
