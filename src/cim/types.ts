@@ -684,10 +684,6 @@ export namespace Types {
      * IsNext:0 | IsNextSingleUse:1 | IsDefault:2
      */
     export type Role = 0 | 1 | 2
-    /**
-     * Enabled: 2 | Disabled: 3 | Shut Down: 4 | Offline: 6 | Test: 7 | Defer: 8 | Quiesce: 9 | Reboot: 10 | Reset: 11 | disable Intel One-Click Recovery and Intel RPE and enable all other boot options: 32768 | disable Intel RPE and enable Intel One-Click Recovery and all other boot options: 32769 | disable Intel One-Click Recovery and enable Intel RPE and all other boot options: 32770 | enable all boot options: 32771 | Vendor Reserved: 32772
-     */
-    export type RequestedState = 2 | 3 | 4 | 6 | 7 | 8 | 9 | 10 | 11 | 32768 | 32769 | 32770 | 32771 | 32772 
   }
 
   export namespace PowerManagementService {
