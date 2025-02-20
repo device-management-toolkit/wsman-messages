@@ -86,6 +86,12 @@ describe('CIM Tests', () => {
       const response = cimClass.BootService.SetBootConfigRole(bootSource, role)
       expect(response).toEqual(correctResponse)
     })
+    it('should create a valid cim_BootService RequestStateChange wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_BootService/RequestStateChange</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_BootService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:RequestStateChange_INPUT xmlns:h="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_BootService"><h:RequestedState>3</h:RequestedState></h:RequestStateChange_INPUT></Body></Envelope>`
+      const response = cimClass.BootService.RequestStateChange(3)
+      expect(response).toEqual(correctResponse)
+    })
+
   })
   describe('cim_BootSourceSetting Tests', () => {
     it('should return a valid cim_BootSourceSetting Get wsman message', () => {
