@@ -1,3 +1,10 @@
+# [5.7.0](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.10...v5.7.0) (2025-02-24)
+
+
+### Features
+
+* **cim:** add RequestStateChange in BootService ([#960](https://github.com/open-amt-cloud-toolkit/wsman-messages/issues/960)) ([e4da726](https://github.com/open-amt-cloud-toolkit/wsman-messages/commit/e4da726697b694b4787978848a9371e4a510070a))
+
 ## [5.6.10](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.9...v5.6.10) (2024-11-08)
 
 ## [5.6.9](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.8...v5.6.9) (2024-08-12)
