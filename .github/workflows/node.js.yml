@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x]
+        node-version: [22.x]
 
     steps:
       - name: Harden Runner
@@ -38,7 +38,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm run lint
-        if: ${{ matrix.node-version == '20.x' }}
       - run: npm run compile --if-present
       - run: npm test
       - name: Test Report
@@ -52,7 +51,6 @@ jobs:
           fail-on-error: 'false'
       - uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
         name: Upload Coverage Results
-        if: ${{ matrix.node-version == '20.x' }}
       - run: mv junit.xml wsman-messages-unit.xml
       - name: Upload JEST Results
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
