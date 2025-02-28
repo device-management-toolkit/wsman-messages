@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { Messages } from './'
-import type { Models } from './'
 import type { Selector } from '../WSMan'
+import type { Models } from './'
+import { Messages } from './'
 
 describe('IPS Tests', () => {
   let messageId: number
@@ -205,4 +205,13 @@ describe('IPS Tests', () => {
       expect(response).toEqual(correctResponse)
     })
   })
+  describe('ips_PowerManagementService Tests', () => {
+    it('should create a valid ips_PowerManagementService RequestOSPowerSavingStateChange wsman message', () => {
+      const OSPowerSavingState = 3 //OS power saving
+
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService/RequestOSPowerSavingStateChange</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:RequestOSPowerSavingStateChange_INPUT xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService"><h:OSPowerSavingState>${OSPowerSavingState}</h:OSPowerSavingState><h:ManagedElement><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ComputerSystem</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="CreationClassName">CIM_ComputerSystem</Selector><Selector Name="Name">ManagedSystem</Selector></SelectorSet></ReferenceParameters></h:ManagedElement></h:RequestOSPowerSavingStateChange_INPUT></Body></Envelope>`
+      const response = ipsClass.PowerManagementService.RequestOSPowerSavingStateChange(OSPowerSavingState)
+      expect(response).toEqual(correctResponse)
+    })
+  })  
 })

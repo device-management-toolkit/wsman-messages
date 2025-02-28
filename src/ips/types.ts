@@ -43,4 +43,11 @@ export namespace Types {
      */
     export type Enabled = 2 | 3 | 6
   }
+
+  export namespace PowerManagementService{
+    /**
+     * Full Power: 2 | OS power saving: 3
+     */
+    export type OSPowerSavingState = 2 | 3 
+  }
 }
