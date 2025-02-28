@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import type { Types } from './types'
 import type { CIM, Common } from '../'
+import type { Types } from './types'
 
 export namespace Models {
   export interface HostBasedSetupService extends CIM.Models.SecurityService {
@@ -50,4 +50,5 @@ export namespace Models {
     PxeTimeout?: number // Timeout in seconds.  0 disables feature.  Max value is 86400 (one day).  Default 120
     AvailableInS0?: boolean // Default true
   }
+
 }

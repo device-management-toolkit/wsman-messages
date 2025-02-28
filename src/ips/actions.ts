@@ -11,5 +11,6 @@ export enum Actions {
   START_OPT_IN = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_OptInService/StartOptIn',
   CANCEL_OPT_IN = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_OptInService/CancelOptIn',
   SEND_OPT_IN_CODE = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_OptInService/SendOptInCode',
-  SET_CERTIFICATES = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_IEEE8021xSettings/SetCertificates'
+  SET_CERTIFICATES = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_IEEE8021xSettings/SetCertificates',
+  REQUEST_OS_POWER_SAVING_STATE_CHANG = "http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService/RequestOSPowerSavingStateChange"
 }
