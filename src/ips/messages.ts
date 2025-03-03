@@ -4,10 +4,10 @@
  **********************************************************************/
 
 // import { CIM } from '../'
-import { Base, WSManMessageCreator } from '../WSMan'
-import { Actions, Methods, Classes } from './'
-import type { Models, Types } from './'
 import type { Selector } from '../WSMan'
+import { Base, WSManMessageCreator } from '../WSMan'
+import type { Models, Types } from './'
+import { Actions, Classes, Methods } from './'
 
 class IEEE8021xCredentialContext extends Base {
   className = Classes.IEEE8021X_CREDENTIAL_CONTEXT
@@ -206,6 +206,23 @@ class OptInService extends Base {
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }
+class PowerManagementService extends Base {
+  className = Classes.POWER_MANAGEMENT_SERVICE   
+  /**
+   * Define the desired OS power saving state of the managed element, and when the element should be put into that state
+   * @param OSPowerSavingState indicates the desired OS power saving state
+   * @returns string
+   */
+  RequestOSPowerSavingStateChange = (OSPowerSavingState: Types.PowerManagementService.OSPowerSavingState): string => {
+    const header: string = this.wsmanMessageCreator.createHeader(
+      Actions.REQUEST_OS_POWER_SAVING_STATE_CHANG,
+      Classes.POWER_MANAGEMENT_SERVICE
+    )
+
+    const body = `<Body><h:RequestOSPowerSavingStateChange_INPUT xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService"><h:OSPowerSavingState>${OSPowerSavingState}</h:OSPowerSavingState><h:ManagedElement><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ComputerSystem</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="CreationClassName">CIM_ComputerSystem</Selector><Selector Name="Name">ManagedSystem</Selector></SelectorSet></ReferenceParameters></h:ManagedElement></h:RequestOSPowerSavingStateChange_INPUT></Body>`
+    return this.wsmanMessageCreator.createXml(header, body)  
+  }
+}
 export class Messages {
   readonly resourceUriBase: string = 'http://intel.com/wbem/wscim/1/ips-schema/1/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -214,4 +231,5 @@ export class Messages {
   public HostBasedSetupService = new HostBasedSetupService(this.wsmanMessageCreator)
   public IEEE8021xSettings = new IEEE8021xSettings(this.wsmanMessageCreator)
   public OptInService = new OptInService(this.wsmanMessageCreator)
+  public PowerManagementService = new PowerManagementService(this.wsmanMessageCreator)
 }

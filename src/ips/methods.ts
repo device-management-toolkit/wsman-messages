@@ -17,5 +17,6 @@ export enum Methods {
   REQUEST_POWER_STATE_CHANGE = 'RequestPowerStateChange',
   ADD_NEXT_CERT_IN_CHAIN = 'AddNextCertInChain',
   SET_CERTIFICATES = 'SetCertificates',
-  SET_CERTIFICATES_INPUT = 'SetCertificates_INPUT'
+  SET_CERTIFICATES_INPUT = 'SetCertificates_INPUT',
+  REQUEST_OS_POWER_SAVING_STATE_CHANGE = 'RequestOSPowerSavingStateChange'
 }
