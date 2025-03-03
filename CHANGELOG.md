@@ -1,3 +1,10 @@
+# [5.8.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.7.0...v5.8.0) (2025-03-03)
+
+
+### Features
+
+* **ips:** add RequestOSPowerSavingStateChange in PowerManagementService ([#967](https://github.com/device-management-toolkit/wsman-messages/issues/967)) ([82ea2ec](https://github.com/device-management-toolkit/wsman-messages/commit/82ea2ec1810cec22dcabaeac9ce0a696a94d65fa))
+
 # [5.7.0](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.10...v5.7.0) (2025-02-24)
 
 
