@@ -61,4 +61,9 @@ export namespace Models {
     Name?: string
     OSPowerSavingState?: Types.PowerManagementService.OSPowerSavingState // ValueMap={0, 1, 2, 3..65535} Values={Reserved, Full Power, OS power saving, Reserved1}
   }
+  
+  export interface RequestOSPowerSavingStateChangeResponse {
+    RequestOSPowerSavingStateChange_OUTPUT: Common.Models.ReturnValue;
+  }
+
 }
