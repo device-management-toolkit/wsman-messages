@@ -49,5 +49,13 @@ export namespace Types {
      * Full Power: 2 | OS power saving: 3
      */
     export type OSPowerSavingState = 2 | 3 
+    /**
+     * Unknown:0 | Other:1 | Enabled:2 | Disabled:3 | Shutting Down:4 | Not Applicable:5 | Enabled but Offline:6 | In Test:7 | Deferred:8 | Quiesce:9 | Starting:10
+     */
+    export type EnabledState = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    /**
+     * Unknown:0 | Enabled:2 | Disabled:3 | Shut Down:4 | No Change:5 | Offline:6 | Test:7 | Deferred:8 | Quiesce:9 | Reboot:10 | Reset:11 | Not Applicable:12
+     */
+    export type RequestedState = 0 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
   }
 }
