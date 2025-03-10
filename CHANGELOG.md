@@ -1,3 +1,10 @@
+# [5.9.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.8.0...v5.9.0) (2025-03-10)
+
+
+### Features
+
+* **ips:** add PowerManagementService interface in models ([#972](https://github.com/device-management-toolkit/wsman-messages/issues/972)) ([cd30da3](https://github.com/device-management-toolkit/wsman-messages/commit/cd30da3648a534b77f3d9625814d724edfd019d2))
+
 # [5.8.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.7.0...v5.8.0) (2025-03-03)
 
 
