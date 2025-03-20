@@ -52,18 +52,21 @@ export namespace Models {
   }
 
   export interface PowerManagementService extends CIM.Models.Service {
-    RequestedState?: Types.PowerManagementService.RequestedState // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9..255} Values={Reserved, Power On, Power Off, Power Cycle, Hard Reset, Power Cycle Reset, Time to Standby, Time to Active, Power Cycle Off, Power Cycle On, Reserved1}
-    EnabledState?: Types.PowerManagementService.EnabledState // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9..255} Values={Reserved, Other, Enabled, Disabled, Shutting Down, Not Applicable, Enabled but Offline, In Test, Deferred, Quiesce, Starting, Reset, Running, Not Running, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed, Power Mode, DMTF Reserved, Vendor Reserved}
-    ElementName?: string
-    SystemCreationClassName?: string 
-    SystemName?: string 
-    CreationClassName?: string 
-    Name?: string
-    OSPowerSavingState?: Types.PowerManagementService.OSPowerSavingState // ValueMap={0, 1, 2, 3..65535} Values={Reserved, Full Power, OS power saving, Reserved1}
+    IPS_PowerManagementService: {
+      RequestedState?: Types.PowerManagementService.RequestedState // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9..255} Values={Reserved, Power On, Power Off, Power Cycle, Hard Reset, Power Cycle Reset, Time to Standby, Time to Active, Power Cycle Off, Power Cycle On, Reserved1}
+      EnabledState?: Types.PowerManagementService.EnabledState // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9..255} Values={Reserved, Other, Enabled, Disabled, Shutting Down, Not Applicable, Enabled but Offline, In Test, Deferred, Quiesce, Starting, Reset, Running, Not Running, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed, Power Mode, DMTF Reserved, Vendor Reserved}
+      ElementName?: string
+      SystemCreationClassName?: string 
+      SystemName?: string 
+      CreationClassName?: string 
+      Name?: string
+      OSPowerSavingState?: Types.PowerManagementService.OSPowerSavingState // ValueMap={0, 1, 2, 3..65535} Values={Reserved, Full Power, OS power saving, Reserved1}
+  } & CIM.Models.Service
+    
   }
   
   export interface RequestOSPowerSavingStateChangeResponse {
-    RequestOSPowerSavingStateChange_OUTPUT: Common.Models.ReturnValue;
+    RequestOSPowerSavingStateChange_OUTPUT: Common.Models.ReturnValue
   }
 
 }
