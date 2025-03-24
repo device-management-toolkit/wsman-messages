@@ -1,3 +1,10 @@
+## [5.9.1](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.0...v5.9.1) (2025-03-24)
+
+
+### Bug Fixes
+
+* updates the states for Power Management Service ([#979](https://github.com/device-management-toolkit/wsman-messages/issues/979)) ([c11cd72](https://github.com/device-management-toolkit/wsman-messages/commit/c11cd72b4bfdf2e2b351c6eda48b42cac12482bc))
+
 # [5.9.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.8.0...v5.9.0) (2025-03-10)
 
 
