@@ -1,3 +1,10 @@
+## [5.9.3](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.2...v5.9.3) (2025-05-19)
+
+
+### Bug Fixes
+
+* address ci file name issue ([04201c7](https://github.com/device-management-toolkit/wsman-messages/commit/04201c7f97fa4bbdb095328f8204c30aac88d0cf))
+
 ## [5.9.2](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.1...v5.9.2) (2025-05-19)
 
 
