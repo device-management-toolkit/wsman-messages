@@ -1,3 +1,10 @@
+## [5.9.2](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.1...v5.9.2) (2025-05-19)
+
+
+### Bug Fixes
+
+* test patch release with device-management-toolkit ([2151b94](https://github.com/device-management-toolkit/wsman-messages/commit/2151b94876e83ce43885a76505b97fe3896c5d42))
+
 ## [5.9.1](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.0...v5.9.1) (2025-03-24)
 
 
