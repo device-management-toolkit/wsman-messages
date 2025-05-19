@@ -51,7 +51,7 @@ jobs:
         run: |
           echo "Publishing @device-management-toolkit/wsman-messages@${{ steps.semantic.outputs.new_release_version }}"
           
-          cp package.device.json dist/package.json
+          cp package.alt.json dist/package.json
           sed -i "s/0.0.0-PLACEHOLDER/${{ steps.semantic.outputs.new_release_version }}/g" dist/package.json
           cd dist
           npm publish
