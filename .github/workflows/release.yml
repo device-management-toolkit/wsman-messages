@@ -37,6 +37,7 @@ jobs:
       - run: npm run compile --if-present
       - run: rsync -a package.json README.md ./dist/
       - name: Semantic Release
+        id: semantic
         uses: cycjimmy/semantic-release-action@b1b432f13acb7768e0c8efdec416d363a57546f2 # v4.1.1
         with:
           semantic_version:
@@ -45,3 +46,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ROSIE_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Publish to @device-management-toolkit
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: |
+          echo "Publishing @device-management-toolkit/wsman-messages@${{ steps.semantic.outputs.new_release_version }}"
+          
+          cp package.device.json dist/package.json
+          sed -i "s/0.0.0-PLACEHOLDER/${{ steps.semantic.outputs.new_release_version }}/g" dist/package.json
+          cd dist
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
