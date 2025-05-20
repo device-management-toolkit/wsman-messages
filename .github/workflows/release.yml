@@ -46,7 +46,7 @@ jobs:
             # for semantic-release.
         env:
           GITHUB_TOKEN: ${{ secrets.ROSIE_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish to @device-management-toolkit
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
