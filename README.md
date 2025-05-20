@@ -10,18 +10,20 @@ Creates properly formatted wsman messages to send to Intel&reg; Active Managemen
 
 <br>
 
+> IMPORTANT: For now, we are continuing to publish both @device-management-toolkit/wsman-messages and @open-amt-cloud-toolkit/wsman-messages npm packages to avoid a breaking change. Please update your package.json at your earliest convenience for when we cease to publish @open-amt-cloud-toolkit/wsman-messages. This is in effort to support the renaming of the toolkit.
+
 ## Installation
 
 via NPM
 
 ```bash
-npm i @open-amt-cloud-toolkit/wsman-messages
+npm i @device-management-toolkit/wsman-messages
 ```
 
 ## Usage
 
 ```typescript
-import { AMT } from '@open-amt-cloud-toolkit/wsman-messages'
+import { AMT } from '@device-management-toolkit/wsman-messages'
 
 const amtClass = new AMT.Message()
 const message = this.amtClass.GeneralSettings.Get()
