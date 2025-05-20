@@ -1,3 +1,10 @@
+## [5.9.5](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.4...v5.9.5) (2025-05-20)
+
+
+### Bug Fixes
+
+* update readme for new name ([d49dd3e](https://github.com/device-management-toolkit/wsman-messages/commit/d49dd3eccbcf29d003936701af63a1249c135fee))
+
 ## [5.9.4](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.3...v5.9.4) (2025-05-20)
 
 
