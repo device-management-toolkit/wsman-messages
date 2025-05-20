@@ -42,7 +42,7 @@ jobs:
         uses: cycjimmy/semantic-release-action@b1b432f13acb7768e0c8efdec416d363a57546f2 # v4.1.1
         with:
           semantic_version:
-            19.0.5 # It is recommended to specify specifying version range
+            24.2.4 # It is recommended to specify specifying version range
             # for semantic-release.
         env:
           GITHUB_TOKEN: ${{ secrets.ROSIE_TOKEN }}
