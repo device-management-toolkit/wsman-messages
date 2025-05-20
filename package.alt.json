@@ -5,7 +5,6 @@
   "main": "index.js",
   "types": " index.d.ts",
   "scripts": {
-    "prepublishOnly": "cp package.json dist",
     "compile": "tsc",
     "lint": "eslint .",
     "test": "jest --detectOpenHandles --forceExit --coverage",
