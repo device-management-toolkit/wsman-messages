@@ -1,3 +1,10 @@
+## [5.9.4](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.3...v5.9.4) (2025-05-20)
+
+
+### Bug Fixes
+
+* update ci to use node 22 for release ([23e3b25](https://github.com/device-management-toolkit/wsman-messages/commit/23e3b25f5800b1a009ffce5ebee12849f30ea418))
+
 ## [5.9.3](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.2...v5.9.3) (2025-05-19)
 
 
