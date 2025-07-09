@@ -142,6 +142,14 @@ class WiFiPort extends Base {
       requestedState
     )
 }
+class ConcreteDependency extends Base {
+  className = Classes.CONCRETE_DEPENDENCY
+}
+
+class CredentialContext extends Base {
+  className = Classes.CREDENTIAL_CONTEXT
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -165,4 +173,6 @@ export class Messages {
   public SystemPackaging = new SystemPackaging(this.wsmanMessageCreator)
   public WiFiEndpointSettings = new WiFiEndpointSettings(this.wsmanMessageCreator)
   public WiFiPort = new WiFiPort(this.wsmanMessageCreator)
+  public ConcreteDependency = new ConcreteDependency(this.wsmanMessageCreator)
+  public CredentialContext = new CredentialContext(this.wsmanMessageCreator)
 }

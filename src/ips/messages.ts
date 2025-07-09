@@ -207,7 +207,7 @@ class OptInService extends Base {
   }
 }
 class PowerManagementService extends Base {
-  className = Classes.POWER_MANAGEMENT_SERVICE   
+  className = Classes.POWER_MANAGEMENT_SERVICE
   /**
    * Define the desired OS power saving state of the managed element, and when the element should be put into that state
    * @param OSPowerSavingState indicates the desired OS power saving state
@@ -220,7 +220,7 @@ class PowerManagementService extends Base {
     )
 
     const body = `<Body><h:RequestOSPowerSavingStateChange_INPUT xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService"><h:OSPowerSavingState>${OSPowerSavingState}</h:OSPowerSavingState><h:ManagedElement><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_ComputerSystem</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="CreationClassName">CIM_ComputerSystem</Selector><Selector Name="Name">ManagedSystem</Selector></SelectorSet></ReferenceParameters></h:ManagedElement></h:RequestOSPowerSavingStateChange_INPUT></Body>`
-    return this.wsmanMessageCreator.createXml(header, body)  
+    return this.wsmanMessageCreator.createXml(header, body)
   }
 }
 export class Messages {

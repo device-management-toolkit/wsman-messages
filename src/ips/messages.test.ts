@@ -213,5 +213,5 @@ describe('IPS Tests', () => {
       const response = ipsClass.PowerManagementService.RequestOSPowerSavingStateChange(OSPowerSavingState)
       expect(response).toEqual(correctResponse)
     })
-  })  
+  })
 })
