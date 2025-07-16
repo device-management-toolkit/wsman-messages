@@ -44,12 +44,12 @@ export namespace Types {
     export type Enabled = 2 | 3 | 6
   }
 
-  export namespace PowerManagementService{
+  export namespace PowerManagementService {
     /**
      * Unknown: 0| Unsupported: 1| Full Power: 2 | OS power saving: 3
      */
-    
-    export type OSPowerSavingState = 0 | 1 | 2 | 3 
+
+    export type OSPowerSavingState = 0 | 1 | 2 | 3
     /**
      * Unknown:0 | Other:1 | Enabled:2 | Disabled:3 | Shutting Down:4 | Not Applicable:5 | Enabled but Offline:6 | In Test:7 | Deferred:8 | Quiesce:9 | Starting:10
      */

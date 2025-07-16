@@ -1,58 +1,50 @@
 ## [5.9.5](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.4...v5.9.5) (2025-05-20)
 
-
 ### Bug Fixes
 
-* update readme for new name ([d49dd3e](https://github.com/device-management-toolkit/wsman-messages/commit/d49dd3eccbcf29d003936701af63a1249c135fee))
+- update readme for new name ([d49dd3e](https://github.com/device-management-toolkit/wsman-messages/commit/d49dd3eccbcf29d003936701af63a1249c135fee))
 
 ## [5.9.4](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.3...v5.9.4) (2025-05-20)
 
-
 ### Bug Fixes
 
-* update ci to use node 22 for release ([23e3b25](https://github.com/device-management-toolkit/wsman-messages/commit/23e3b25f5800b1a009ffce5ebee12849f30ea418))
+- update ci to use node 22 for release ([23e3b25](https://github.com/device-management-toolkit/wsman-messages/commit/23e3b25f5800b1a009ffce5ebee12849f30ea418))
 
 ## [5.9.3](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.2...v5.9.3) (2025-05-19)
 
-
 ### Bug Fixes
 
-* address ci file name issue ([04201c7](https://github.com/device-management-toolkit/wsman-messages/commit/04201c7f97fa4bbdb095328f8204c30aac88d0cf))
+- address ci file name issue ([04201c7](https://github.com/device-management-toolkit/wsman-messages/commit/04201c7f97fa4bbdb095328f8204c30aac88d0cf))
 
 ## [5.9.2](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.1...v5.9.2) (2025-05-19)
 
-
 ### Bug Fixes
 
-* test patch release with device-management-toolkit ([2151b94](https://github.com/device-management-toolkit/wsman-messages/commit/2151b94876e83ce43885a76505b97fe3896c5d42))
+- test patch release with device-management-toolkit ([2151b94](https://github.com/device-management-toolkit/wsman-messages/commit/2151b94876e83ce43885a76505b97fe3896c5d42))
 
 ## [5.9.1](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.0...v5.9.1) (2025-03-24)
 
-
 ### Bug Fixes
 
-* updates the states for Power Management Service ([#979](https://github.com/device-management-toolkit/wsman-messages/issues/979)) ([c11cd72](https://github.com/device-management-toolkit/wsman-messages/commit/c11cd72b4bfdf2e2b351c6eda48b42cac12482bc))
+- updates the states for Power Management Service ([#979](https://github.com/device-management-toolkit/wsman-messages/issues/979)) ([c11cd72](https://github.com/device-management-toolkit/wsman-messages/commit/c11cd72b4bfdf2e2b351c6eda48b42cac12482bc))
 
 # [5.9.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.8.0...v5.9.0) (2025-03-10)
 
-
 ### Features
 
-* **ips:** add PowerManagementService interface in models ([#972](https://github.com/device-management-toolkit/wsman-messages/issues/972)) ([cd30da3](https://github.com/device-management-toolkit/wsman-messages/commit/cd30da3648a534b77f3d9625814d724edfd019d2))
+- **ips:** add PowerManagementService interface in models ([#972](https://github.com/device-management-toolkit/wsman-messages/issues/972)) ([cd30da3](https://github.com/device-management-toolkit/wsman-messages/commit/cd30da3648a534b77f3d9625814d724edfd019d2))
 
 # [5.8.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.7.0...v5.8.0) (2025-03-03)
 
-
 ### Features
 
-* **ips:** add RequestOSPowerSavingStateChange in PowerManagementService ([#967](https://github.com/device-management-toolkit/wsman-messages/issues/967)) ([82ea2ec](https://github.com/device-management-toolkit/wsman-messages/commit/82ea2ec1810cec22dcabaeac9ce0a696a94d65fa))
+- **ips:** add RequestOSPowerSavingStateChange in PowerManagementService ([#967](https://github.com/device-management-toolkit/wsman-messages/issues/967)) ([82ea2ec](https://github.com/device-management-toolkit/wsman-messages/commit/82ea2ec1810cec22dcabaeac9ce0a696a94d65fa))
 
 # [5.7.0](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.10...v5.7.0) (2025-02-24)
 
-
 ### Features
 
-* **cim:** add RequestStateChange in BootService ([#960](https://github.com/open-amt-cloud-toolkit/wsman-messages/issues/960)) ([e4da726](https://github.com/open-amt-cloud-toolkit/wsman-messages/commit/e4da726697b694b4787978848a9371e4a510070a))
+- **cim:** add RequestStateChange in BootService ([#960](https://github.com/open-amt-cloud-toolkit/wsman-messages/issues/960)) ([e4da726](https://github.com/open-amt-cloud-toolkit/wsman-messages/commit/e4da726697b694b4787978848a9371e4a510070a))
 
 ## [5.6.10](https://github.com/open-amt-cloud-toolkit/wsman-messages/compare/v5.6.9...v5.6.10) (2024-11-08)
 

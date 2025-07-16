@@ -51,7 +51,7 @@ jobs:
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           echo "Publishing @device-management-toolkit/wsman-messages@${{ steps.semantic.outputs.new_release_version }}"
-          
+
           sed -i 's/"@open-amt-cloud-toolkit\/wsman-messages"/"@device-management-toolkit\/wsman-messages"/' dist/package.json
           sed -i 's/"version": "[^"]*"/"version": "${{ steps.semantic.outputs.new_release_version }}"/' dist/package.json
           cd dist
