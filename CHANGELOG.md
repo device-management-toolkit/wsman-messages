@@ -1,3 +1,10 @@
+# [5.10.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.5...v5.10.0) (2025-07-16)
+
+
+### Features
+
+* **cim:** add credential context and concrete dependency interfaces ([#1065](https://github.com/device-management-toolkit/wsman-messages/issues/1065)) ([f42389b](https://github.com/device-management-toolkit/wsman-messages/commit/f42389be8cac248a926fc6358740097270e5c7c4))
+
 ## [5.9.5](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.4...v5.9.5) (2025-05-20)
 
 ### Bug Fixes
