@@ -215,7 +215,7 @@ class PowerManagementService extends Base {
    */
   RequestOSPowerSavingStateChange = (OSPowerSavingState: Types.PowerManagementService.OSPowerSavingState): string => {
     const header: string = this.wsmanMessageCreator.createHeader(
-      Actions.REQUEST_OS_POWER_SAVING_STATE_CHANG,
+      Actions.REQUEST_OS_POWER_SAVING_STATE_CHANGE,
       Classes.POWER_MANAGEMENT_SERVICE
     )
 
@@ -223,6 +223,22 @@ class PowerManagementService extends Base {
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }
+
+class HTTPProxyService extends Base {
+  className: Classes.HTTP_PROXY_SERVICE
+
+  AddProxyAccessPoint = (addProxyAccessPointParameters: Models.AddProxyAccessPointParameters): string => {
+    const header = this.wsmanMessageCreator.createHeader(Actions.ADD_PROXY_ACCESS_POINT, Classes.HTTP_PROXY_SERVICE)
+    const body = this.wsmanMessageCreator.createBody('AddProxyAccessPoint_INPUT', Classes.HTTP_PROXY_SERVICE, [
+      { AccessInfo: addProxyAccessPointParameters.AccessInfo },
+      { InfoFormat: addProxyAccessPointParameters.InfoFormat },
+      { Port: addProxyAccessPointParameters.Port },
+      { NetworkDnsSuffix: addProxyAccessPointParameters.NetworkDnsSuffix }
+    ])
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://intel.com/wbem/wscim/1/ips-schema/1/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -232,4 +248,5 @@ export class Messages {
   public IEEE8021xSettings = new IEEE8021xSettings(this.wsmanMessageCreator)
   public OptInService = new OptInService(this.wsmanMessageCreator)
   public PowerManagementService = new PowerManagementService(this.wsmanMessageCreator)
+  public HTTPProxyService = new HTTPProxyService(this.wsmanMessageCreator)
 }

@@ -67,4 +67,15 @@ export namespace Models {
   export interface RequestOSPowerSavingStateChangeResponse {
     RequestOSPowerSavingStateChange_OUTPUT: Common.Models.ReturnValue
   }
+
+  export interface HTTPProxyService extends CIM.Models.Service {
+    SyncEnabled: boolean
+  }
+
+  export interface AddProxyAccessPointParameters {
+    AccessInfo: string
+    InfoFormat: Types.HTTPProxyService.InfoFormat
+    Port: number
+    NetworkDnsSuffix: string
+  }
 }
