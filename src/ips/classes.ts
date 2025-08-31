@@ -9,5 +9,6 @@ export enum Classes {
   ALARM_CLOCK_OCCURRENCE = 'IPS_AlarmClockOccurrence',
   IEEE8021X_SETTINGS = 'IPS_IEEE8021xSettings',
   IEEE8021X_CREDENTIAL_CONTEXT = 'IPS_8021xCredentialContext',
-  POWER_MANAGEMENT_SERVICE = 'IPS_PowerManagementService'
+  POWER_MANAGEMENT_SERVICE = 'IPS_PowerManagementService',
+  HTTP_PROXY_SERVICE = 'IPS_HTTPProxyService'
 }

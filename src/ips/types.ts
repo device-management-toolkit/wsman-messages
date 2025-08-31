@@ -59,4 +59,15 @@ export namespace Types {
      */
     export type RequestedState = 0 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
   }
+
+  export namespace HTTPProxyService {
+    /**
+     * FALSE:0 | TRUE:1
+     */
+    export type SyncEnabled = 0 | 1
+    /**
+     * 3 = IPv4 Address | 4 = IPv6 Address | 201 = FQDN
+     */
+    export type InfoFormat = 3 | 4 | 201
+  }
 }
