@@ -1,3 +1,15 @@
+# [5.11.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.10.0...v5.11.0) (2025-09-24)
+
+
+### Bug Fixes
+
+* adding unit test ([56ebc8c](https://github.com/device-management-toolkit/wsman-messages/commit/56ebc8c1fdf3806a8a61232b9114ef7544b305ff))
+
+
+### Features
+
+* enable http proxy for CIRA ([df534c6](https://github.com/device-management-toolkit/wsman-messages/commit/df534c67e539a71ebcd16c5be2ea647cc01cbea4))
+
 # [5.10.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.9.5...v5.10.0) (2025-07-16)
 
 
