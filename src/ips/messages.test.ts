@@ -214,4 +214,17 @@ describe('IPS Tests', () => {
       expect(response).toEqual(correctResponse)
     })
   })
+  describe('ips_HTTPProxyService Tests', () => {
+    it('should create a valid ips_HTTPProxyService AddProxyAccessPoint wsman message', () => {
+      const addProxyAccessPointParameters: Models.AddProxyAccessPointParameters = {
+        AccessInfo: 'proxy.example.com',
+        InfoFormat: 201,
+        Port: 8080,
+        NetworkDnsSuffix: 'example.com'
+      }
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyService/AddProxyAccessPoint</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:AddProxyAccessPoint_INPUT xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyService"><h:AccessInfo>${addProxyAccessPointParameters.AccessInfo}</h:AccessInfo><h:InfoFormat>${addProxyAccessPointParameters.InfoFormat}</h:InfoFormat><h:Port>${addProxyAccessPointParameters.Port}</h:Port><h:NetworkDnsSuffix>${addProxyAccessPointParameters.NetworkDnsSuffix}</h:NetworkDnsSuffix></h:AddProxyAccessPoint_INPUT></Body></Envelope>`
+      const response = ipsClass.HTTPProxyService.AddProxyAccessPoint(addProxyAccessPointParameters)
+      expect(response).toEqual(correctResponse)
+    })
+  })
 })
