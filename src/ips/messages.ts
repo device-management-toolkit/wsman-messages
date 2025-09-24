@@ -225,7 +225,7 @@ class PowerManagementService extends Base {
 }
 
 class HTTPProxyService extends Base {
-  className: Classes.HTTP_PROXY_SERVICE
+  className = Classes.HTTP_PROXY_SERVICE
 
   AddProxyAccessPoint = (addProxyAccessPointParameters: Models.AddProxyAccessPointParameters): string => {
     const header = this.wsmanMessageCreator.createHeader(Actions.ADD_PROXY_ACCESS_POINT, Classes.HTTP_PROXY_SERVICE)
