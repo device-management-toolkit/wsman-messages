@@ -233,10 +233,19 @@ class HTTPProxyService extends Base {
       { AccessInfo: addProxyAccessPointParameters.AccessInfo },
       { InfoFormat: addProxyAccessPointParameters.InfoFormat },
       { Port: addProxyAccessPointParameters.Port },
-      { NetworkDnsSuffix: addProxyAccessPointParameters.NetworkDnsSuffix }
-    ])
+      { NetworkDnsSuffix: addProxyAccessPointParameters.NetworkDnsSuffix }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
+}
+
+class ScreenSettingData extends Base {
+  className = Classes.SCREEN_SETTING_DATA
+}
+
+class KVMRedirectionSettingData extends Base {
+  className = Classes.KVM_REDIRECTION_SETTING_DATA
+
+  Put = (data: Models.KVMRedirectionSettingData): string => this.protectedPut(data, false)
 }
 
 export class Messages {
@@ -249,4 +258,6 @@ export class Messages {
   public OptInService = new OptInService(this.wsmanMessageCreator)
   public PowerManagementService = new PowerManagementService(this.wsmanMessageCreator)
   public HTTPProxyService = new HTTPProxyService(this.wsmanMessageCreator)
+  public ScreenSettingData = new ScreenSettingData(this.wsmanMessageCreator)
+  public KVMRedirectionSettingData = new KVMRedirectionSettingData(this.wsmanMessageCreator)
 }

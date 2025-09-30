@@ -78,4 +78,21 @@ export namespace Models {
     Port: number
     NetworkDnsSuffix: string
   }
+
+  export interface KVMRedirectionSettingData {
+    ElementName: string
+    InstanceID: string
+    EnabledByMEBx: boolean
+    BackToBackFbMode: boolean
+    Is5900PortEnabled: boolean
+    OptInPolicy: boolean
+    SessionTimeout: number
+    RFBPassword: string
+    DefaultScreen: number
+    InitialDecimationModeForLowRes: number
+    GreyscalePixelFormatSupported: boolean
+    ZlibControlSupported: boolean
+    DoubleBufferMode: boolean
+    DoubleBufferState: boolean
+  }
 }
