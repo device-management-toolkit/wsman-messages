@@ -1,3 +1,10 @@
+# [5.12.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.11.0...v5.12.0) (2025-09-30)
+
+
+### Features
+
+* **ips:** add screen and redirection setting data ([#1106](https://github.com/device-management-toolkit/wsman-messages/issues/1106)) ([96e043f](https://github.com/device-management-toolkit/wsman-messages/commit/96e043fdf1b3d96b17d7e8aeb1781aeae6c0facc))
+
 # [5.11.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.10.0...v5.11.0) (2025-09-24)
 
 ### Bug Fixes
