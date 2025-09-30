@@ -227,4 +227,54 @@ describe('IPS Tests', () => {
       expect(response).toEqual(correctResponse)
     })
   })
+
+  describe('ips_ScreenSettingData Tests', () => {
+    it('should return a valid ips_ScreenSettingData Get wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_ScreenSettingData</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body></Body></Envelope>`
+      const response = ipsClass.ScreenSettingData.Get()
+      expect(response).toEqual(correctResponse)
+    })
+  })
+
+  describe('ips_KVMRedirectionSettingData Tests', () => {
+    it('should return a valid ips_KVMRedirectionSettingData Get wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_KVMRedirectionSettingData</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body></Body></Envelope>`
+      const response = ipsClass.KVMRedirectionSettingData.Get()
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_KVMRedirectionSettingData Enumerate wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Enumerate</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_KVMRedirectionSettingData</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Enumerate xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration" /></Body></Envelope>`
+      const response = ipsClass.KVMRedirectionSettingData.Enumerate()
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_KVMRedirectionSettingData Pull wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Pull</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_KVMRedirectionSettingData</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Pull xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration"><EnumerationContext>${enumerationContext}</EnumerationContext><MaxElements>999</MaxElements><MaxCharacters>99999</MaxCharacters></Pull></Body></Envelope>`
+      const response = ipsClass.KVMRedirectionSettingData.Pull(enumerationContext)
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_KVMRedirectionSettingData Put wsman message', () => {
+      const data: Models.KVMRedirectionSettingData = {
+        ElementName: 'testKVM',
+        InstanceID: 'KVM-1',
+        OptInPolicy: true,
+        SessionTimeout: 30,
+        RFBPassword: 'password',
+        DefaultScreen: 0,
+        InitialDecimationModeForLowRes: 0,
+        GreyscalePixelFormatSupported: false,
+        ZlibControlSupported: false,
+        DoubleBufferMode: false,
+        DoubleBufferState: false,
+        EnabledByMEBx: true,
+        BackToBackFbMode: false,
+        Is5900PortEnabled: true
+      }
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Put</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_KVMRedirectionSettingData</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:IPS_KVMRedirectionSettingData xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_KVMRedirectionSettingData"><h:ElementName>testKVM</h:ElementName><h:InstanceID>KVM-1</h:InstanceID><h:OptInPolicy>true</h:OptInPolicy><h:SessionTimeout>30</h:SessionTimeout><h:RFBPassword>password</h:RFBPassword><h:DefaultScreen>0</h:DefaultScreen><h:InitialDecimationModeForLowRes>0</h:InitialDecimationModeForLowRes><h:GreyscalePixelFormatSupported>false</h:GreyscalePixelFormatSupported><h:ZlibControlSupported>false</h:ZlibControlSupported><h:DoubleBufferMode>false</h:DoubleBufferMode><h:DoubleBufferState>false</h:DoubleBufferState><h:EnabledByMEBx>true</h:EnabledByMEBx><h:BackToBackFbMode>false</h:BackToBackFbMode><h:Is5900PortEnabled>true</h:Is5900PortEnabled></h:IPS_KVMRedirectionSettingData></Body></Envelope>`
+      const response = ipsClass.KVMRedirectionSettingData.Put(data)
+      expect(response).toEqual(correctResponse)
+    })
+  })
 })
