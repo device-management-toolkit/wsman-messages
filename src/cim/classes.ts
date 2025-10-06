@@ -26,5 +26,6 @@ export enum Classes {
   IEEE8021X_SETTINGS = 'CIM_IEEE8021xSettings',
   WIFI_ENDPOINT = 'CIM_WiFiEndpoint',
   CONCRETE_DEPENDENCY = 'CIM_ConcreteDependency',
-  CREDENTIAL_CONTEXT = 'CIM_CredentialContext'
+  CREDENTIAL_CONTEXT = 'CIM_CredentialContext',
+  REMOTE_SERVICE_ACCESS_POINT = 'CIM_RemoteServiceAccessPoint'
 }

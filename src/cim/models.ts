@@ -428,4 +428,27 @@ export namespace Models {
     Algorithm?: string
     Protocol?: string
   }
+
+  export interface RemoteServiceAccessPoint {
+    Name: string // MaxLen=256
+    CreationClassName: string // MaxLen=256
+    SystemName: string // MaxLen=256
+    SystemCreationClassName: string // MaxLen=256
+    ElementName: string // MaxLen=256
+    Description: string // MaxLen=256
+    Caption: string // MaxLen=64
+    InstallDate: Date
+    OperationalStatus: Types.RemoteServiceAccessPoint.OperationalStatus // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, .., 0x8000..} Values={Unknown, Other, OK, Degraded/Warning, Minor Failure, Major Failure, Critical Failure, Non-Recoverable Error, Starting, Stopping, Stopped/Not Applicable, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed}
+    StatusDescriptions: string[] // MaxLen=256
+    Status: string // MaxLen=256
+    HealthState: Types.RemoteServiceAccessPoint.HealthState // ValueMap={0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95} Values={Unknown, OK, Degraded/Warning, Minor Failure, Major Failure, Critical Failure, Non-Recoverable Error, Starting, Stopping, Stopped/Not Applicable, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed}
+    EnabledState: Types.RemoteServiceAccessPoint.EnabledState // ValueMap={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, .., 0x8000..} Values={Unknown, Other, OK, Degraded/Warning, Minor Failure, Major Failure, Critical Failure, Non-Recoverable Error, Starting, Stopping, Stopped/Not Applicable, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed}
+    OtherEnabledState: Types.EnabledLogicalElement.EnabledState // MaxLen=256
+    RequestedState: Types.RemoteServiceAccessPoint.RequestedState // ValueMap={0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, .., 0x8000..} Values={Unknown, Other, OK, Degraded/Warning, Minor Failure, Major Failure, Critical Failure, Non-Recoverable Error, Starting, Stopping, Stopped/Not Applicable, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed}
+    EnabledDefault: Types.RemoteServiceAccessPoint.EnabledDefault // ValueMap={2, 3, 5, 6, 7, 9, .., 0x8000..} Values={OK, Degraded/Warning, Minor Failure, Major Failure, Critical Failure, Non-Recoverable Error, Starting, Stopping, Stopped/Not Applicable, In Service, No Contact, Lost Communication, Aborted, Dormant, Supporting Entity in Error, Completed}
+    TimeOfLastStateChange: Date
+    AccessInfo: string // MaxLen=256
+    InfoFormat: Types.RemoteServiceAccessPoint.InfoFormat // MaxLen=256
+    OtherInfoFormatDescription: string // MaxLen=256
+  }
 }

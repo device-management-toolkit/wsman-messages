@@ -3,7 +3,6 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-// import { CIM } from '../'
 import type { Selector } from '../WSMan'
 import { Base, WSManMessageCreator } from '../WSMan'
 import type { Models, Types } from './'
@@ -248,6 +247,26 @@ class KVMRedirectionSettingData extends Base {
   Put = (data: Models.KVMRedirectionSettingData): string => this.protectedPut(data, false)
 }
 
+class HTTPProxyAccessPoint extends Base {
+  className = Classes.HTTP_PROXY_ACCESS_POINT
+  /**
+   * Sets proxy priority to highest priority.
+   * @returns string
+   */
+  UpdatePriority = (): string => {
+    const header = this.wsmanMessageCreator.createHeader(Actions.UPDATE_PRIORITY, Classes.HTTP_PROXY_ACCESS_POINT)
+    const body = this.wsmanMessageCreator.createBody('UpdatePriority_INPUT', Classes.HTTP_PROXY_ACCESS_POINT)
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
+
+  /**
+   * Deletes an instance of HTTPProxyAccessPoint
+   * @param selector Selector Object.
+   * @returns string
+   */
+  Delete = (selector: Selector): string => this.protectedDelete(selector)
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://intel.com/wbem/wscim/1/ips-schema/1/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -260,4 +279,5 @@ export class Messages {
   public HTTPProxyService = new HTTPProxyService(this.wsmanMessageCreator)
   public ScreenSettingData = new ScreenSettingData(this.wsmanMessageCreator)
   public KVMRedirectionSettingData = new KVMRedirectionSettingData(this.wsmanMessageCreator)
+  public HTTPProxyAccessPoint = new HTTPProxyAccessPoint(this.wsmanMessageCreator)
 }

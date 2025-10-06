@@ -150,6 +150,20 @@ class CredentialContext extends Base {
   className = Classes.CREDENTIAL_CONTEXT
 }
 
+class RemoteServiceAccessPoint extends Base {
+  className= Classes.REMOTE_SERVICE_ACCESS_POINT
+  /**
+   * Requests that the state of the element be changed to the value specified in the RequestedState parameter. When the requested state change takes place, the EnabledState and RequestedState of the element will be the same. Invoking the RequestStateChange method multiple times could result in earlier requests being overwritten or lost. If 0 is returned, then the task completed successfully and the use of ConcreteJob was not required. If 4096 (0x1000) is returned, then the task will take some time to complete, ConcreteJob will be created, and its reference returned in the output parameter Job. Any other return code indicates an error condition.
+   * @param requestedState The state requested for the element. This information will be placed into the RequestedState property of the instance if the return code of the RequestStateChange method is 0 ('Completed with No Error'), or 4096 (0x1000) ('Job Started'). Refer to the description of the EnabledState and RequestedState properties for the detailed explanations of the RequestedState values.
+   * @returns string
+   */
+  RequestStateChange = (requestedState: Types.RemoteServiceAccessPoint.RequestedState): string =>
+    this.protectedRequestStateChange(
+      `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${this.className}/RequestStateChange`,
+      requestedState
+    )
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -175,4 +189,5 @@ export class Messages {
   public WiFiPort = new WiFiPort(this.wsmanMessageCreator)
   public ConcreteDependency = new ConcreteDependency(this.wsmanMessageCreator)
   public CredentialContext = new CredentialContext(this.wsmanMessageCreator)
+  public RemoteServiceAccessPoint = new RemoteServiceAccessPoint(this.wsmanMessageCreator)
 }

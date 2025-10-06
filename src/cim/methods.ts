@@ -4,6 +4,7 @@
  **********************************************************************/
 
 export enum Methods {
+  CREATE = 'Create',
   GET = 'Get',
   PULL = 'Pull',
   ENUMERATE = 'Enumerate',
@@ -12,5 +13,8 @@ export enum Methods {
   SET_BOOT_CONFIG_ROLE = 'SetBootConfigRole',
   CHANGE_BOOT_ORDER = 'ChangeBootOrder',
   REQUEST_POWER_STATE_CHANGE = 'RequestPowerStateChange',
-  REQUEST_STATE_CHANGE = 'RequestStateChange'
+  REQUEST_STATE_CHANGE = 'RequestStateChange',
+  RELEASE = 'Release',
+  Subscribe = 'Subscribe',
+  Unsubscribe = 'Unsubscribe'
 }

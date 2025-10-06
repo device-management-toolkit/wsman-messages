@@ -70,4 +70,15 @@ export namespace Types {
      */
     export type InfoFormat = 3 | 4 | 201
   }
+
+  export namespace HTTPProxyAccessPoint {
+    /**
+     * 0 = IT Type Proxy | 1 = Sync Type Proxy
+     */
+    export type Type = 0 | 1
+    /**
+     * 3 = IPv4 Address | 4 = IPv6 Address | 201 = FQDN
+     */
+    export type InfoFormat = 3 | 4 | 201
+  }
 }

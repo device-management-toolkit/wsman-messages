@@ -718,4 +718,52 @@ export namespace Types {
      */
     export type FailThroughSupported = 0 | 1 | 2
   }
+
+  export namespace RemoteServiceAccessPoint {
+     /**
+     * 0 = Unknown | 1 = Other | 2 = OK | 3 = Degraded | 4 = Stressed | 5 = Predictive Failure | 6 = Error | 7 = Non-Recoverable Error | 8 = Starting | 9 = Stopping | 10 = Stopped | 11 = In Service | 12 = No Contact | 13 = Lost Communication | 14 = Aborted | 15 = Dormant | 16 = Supporting Entity in Error | 17 = Completed | 18 = Power Mode | 19 = Relocating
+     */
+    export type OperationalStatusValues =
+      | 0
+      | 1
+      | 2
+      | 3
+      | 4
+      | 5
+      | 6
+      | 7
+      | 8
+      | 9
+      | 10
+      | 11
+      | 12
+      | 13
+      | 14
+      | 15
+      | 16
+      | 17
+      | 18
+      | 19
+    export type OperationalStatus = OperationalStatusValues[]
+    /**
+     * 0 = Unknown | 5 = OK | 10 = Degraded/Warning | 15 = Minor failure | 20 = Major failure | 25 = Critical failure | 30 = Non-recoverable error
+     */
+    export type HealthState = 0 | 5 | 10 | 15 | 20 | 25 | 30
+    /**
+     * Unknown:0 | Other:1 | Enabled:2 | Disabled:3 | Shutting Down:4 | Not Applicable:5 | Enabled but Offline:6 | In Test:7 | Deferred:8 | Quiesce:9 | Starting:10
+     */
+    export type EnabledState = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+    /**
+     * Unknown:0 | Enabled:2 | Disabled:3 | Shut Down:4 | No Change:5 | Offline:6 | Test:7 | Deferred:8 | Quiesce:9 | Reboot:10 | Reset:11 | Not Applicable:12
+     */
+    export type RequestedState = 0 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+    /**
+     * Enabled:2 | Disabled:3 | Not Applicable:5 | Enabled but Offline:6 | No Default:7 | Quiesce:9
+     */
+    export type EnabledDefault = 2 | 3 | 5 | 6 | 7 | 9
+    /**
+     * 3 = IPv4 Address | 4 = IPv6 Address | 201 = FQDN
+     */
+    export type InfoFormat = 3 | 4 | 201
+  }
 }

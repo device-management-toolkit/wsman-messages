@@ -79,6 +79,15 @@ export namespace Models {
     NetworkDnsSuffix: string
   }
 
+  export interface HTTPProxyAccessPoint extends CIM.Models.RemoteServiceAccessPoint {
+    Type: Types.HTTPProxyAccessPoint.Type
+    Port: number
+    NetworkDnsSuffix: string
+    Priority: number
+    InfoFormat: Types.HTTPProxyAccessPoint.InfoFormat
+    AccessInfo: string
+  }
+
   export interface KVMRedirectionSettingData {
     ElementName: string
     InstanceID: string

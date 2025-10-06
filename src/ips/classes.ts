@@ -12,5 +12,6 @@ export enum Classes {
   POWER_MANAGEMENT_SERVICE = 'IPS_PowerManagementService',
   HTTP_PROXY_SERVICE = 'IPS_HTTPProxyService',
   SCREEN_SETTING_DATA = 'IPS_ScreenSettingData',
-  KVM_REDIRECTION_SETTING_DATA = 'IPS_KVMRedirectionSettingData'
+  KVM_REDIRECTION_SETTING_DATA = 'IPS_KVMRedirectionSettingData',
+  HTTP_PROXY_ACCESS_POINT = 'IPS_HTTPProxyAccessPoint'
 }
