@@ -13,5 +13,6 @@ export enum Actions {
   SEND_OPT_IN_CODE = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_OptInService/SendOptInCode',
   SET_CERTIFICATES = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_IEEE8021xSettings/SetCertificates',
   REQUEST_OS_POWER_SAVING_STATE_CHANGE = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_PowerManagementService/RequestOSPowerSavingStateChange',
-  ADD_PROXY_ACCESS_POINT = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyService/AddProxyAccessPoint'
+  ADD_PROXY_ACCESS_POINT = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyService/AddProxyAccessPoint',
+  UPDATE_PRIORITY = 'http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint/UpdatePriority'
 }

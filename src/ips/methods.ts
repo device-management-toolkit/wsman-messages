@@ -19,5 +19,6 @@ export enum Methods {
   SET_CERTIFICATES = 'SetCertificates',
   SET_CERTIFICATES_INPUT = 'SetCertificates_INPUT',
   REQUEST_OS_POWER_SAVING_STATE_CHANGE = 'RequestOSPowerSavingStateChange',
-  ADD_PROXY_ACCESS_POINT = 'AddProxyAccessPoint'
+  ADD_PROXY_ACCESS_POINT = 'AddProxyAccessPoint',
+  UPDATE_PRIORITY = 'UpdatePriority'
 }
