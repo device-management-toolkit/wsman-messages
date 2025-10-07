@@ -1,3 +1,10 @@
+# [5.13.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.12.0...v5.13.0) (2025-10-07)
+
+
+### Features
+
+* **ips:** adds HTTP Proxy Access Point ([#1114](https://github.com/device-management-toolkit/wsman-messages/issues/1114)) ([b48dd5e](https://github.com/device-management-toolkit/wsman-messages/commit/b48dd5ecebf88a8e1e53cc17716dca85d70a7bb9))
+
 # [5.12.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.11.0...v5.12.0) (2025-09-30)
 
 
