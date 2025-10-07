@@ -277,4 +277,42 @@ describe('IPS Tests', () => {
       expect(response).toEqual(correctResponse)
     })
   })
+
+  describe('ips_HTTPProxyAccessPoint Tests', () => {
+    const selector: Selector = {
+      name: 'Name',
+      value: 'Intel(r) ME:HTTP Proxy Access Point 0'
+    }
+
+    it('should return a valid ips_HTTPProxyAccessPoint Get wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body></Body></Envelope>`
+      const response = ipsClass.HTTPProxyAccessPoint.Get()
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_HTTPProxyAccessPoint Enumerate wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Enumerate</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Enumerate xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration" /></Body></Envelope>`
+      const response = ipsClass.HTTPProxyAccessPoint.Enumerate()
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_HTTPProxyAccessPoint Pull wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Pull</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Pull xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration"><EnumerationContext>${enumerationContext}</EnumerationContext><MaxElements>999</MaxElements><MaxCharacters>99999</MaxCharacters></Pull></Body></Envelope>`
+      const response = ipsClass.HTTPProxyAccessPoint.Pull(enumerationContext)
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_HTTPProxyAccessPoint UpdatePriority wsman message', () => {
+      const priority = 5
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint/UpdatePriority</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:UpdatePriority_INPUT xmlns:h="http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint"><h:Priority>5</h:Priority></h:UpdatePriority_INPUT></Body></Envelope>`
+      const response = ipsClass.HTTPProxyAccessPoint.UpdatePriority(priority)
+      expect(response).toEqual(correctResponse)
+    })
+
+    it('should return a valid ips_HTTPProxyAccessPoint Delete wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Delete</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/ips-schema/1/IPS_HTTPProxyAccessPoint</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout><w:SelectorSet><w:Selector Name="Name">Intel(r) ME:HTTP Proxy Access Point 0</w:Selector></w:SelectorSet></Header><Body></Body></Envelope>`
+      const response = ipsClass.HTTPProxyAccessPoint.Delete(selector)
+      expect(response).toEqual(correctResponse)
+    })
+  })
 })

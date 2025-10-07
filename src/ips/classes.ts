@@ -11,6 +11,7 @@ export enum Classes {
   IEEE8021X_CREDENTIAL_CONTEXT = 'IPS_8021xCredentialContext',
   POWER_MANAGEMENT_SERVICE = 'IPS_PowerManagementService',
   HTTP_PROXY_SERVICE = 'IPS_HTTPProxyService',
+  HTTP_PROXY_ACCESS_POINT = 'IPS_HTTPProxyAccessPoint',
   SCREEN_SETTING_DATA = 'IPS_ScreenSettingData',
   KVM_REDIRECTION_SETTING_DATA = 'IPS_KVMRedirectionSettingData'
 }

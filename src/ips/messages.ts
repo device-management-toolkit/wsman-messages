@@ -248,6 +248,39 @@ class KVMRedirectionSettingData extends Base {
   Put = (data: Models.KVMRedirectionSettingData): string => this.protectedPut(data, false)
 }
 
+class HTTPProxyAccessPoint extends Base {
+  className = Classes.HTTP_PROXY_ACCESS_POINT
+
+  /**
+   * Updates the priority of an HTTPProxyAccessPoint
+   * @param priority The priority value to set
+   * @returns string
+   */
+  UpdatePriority = (priority: number): string => {
+    const header: string = this.wsmanMessageCreator.createHeader(
+      Actions.UPDATE_PRIORITY,
+      Classes.HTTP_PROXY_ACCESS_POINT
+    )
+    const body: string = this.wsmanMessageCreator.createBody(
+      'UpdatePriority_INPUT',
+      Classes.HTTP_PROXY_ACCESS_POINT,
+      [
+        {
+          Priority: priority
+        }
+      ]
+    )
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
+
+  /**
+   * Deletes an instance of HTTPProxyAccessPoint
+   * @param selector Selector Object.
+   * @returns string
+   */
+  Delete = (selector: Selector): string => this.protectedDelete(selector)
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://intel.com/wbem/wscim/1/ips-schema/1/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -258,6 +291,7 @@ export class Messages {
   public OptInService = new OptInService(this.wsmanMessageCreator)
   public PowerManagementService = new PowerManagementService(this.wsmanMessageCreator)
   public HTTPProxyService = new HTTPProxyService(this.wsmanMessageCreator)
+  public HTTPProxyAccessPoint = new HTTPProxyAccessPoint(this.wsmanMessageCreator)
   public ScreenSettingData = new ScreenSettingData(this.wsmanMessageCreator)
   public KVMRedirectionSettingData = new KVMRedirectionSettingData(this.wsmanMessageCreator)
 }
