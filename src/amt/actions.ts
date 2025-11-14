@@ -35,7 +35,8 @@ export enum Actions {
   GET_ADMIN_ACL_ENTRY_STATUS = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/GetAdminAclEntryStatus',
   GET_ADMIN_NET_ACL_ENTRY_STATUS = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/GetAdminNetAclEntryStatus',
   SET_ACL_ENABLED_STATE = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/SetAclEnabledState',
-  GET_ACL_ENABLED_STATE = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/GetAclEnabledState'
+  GET_ACL_ENABLED_STATE = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/GetAclEnabledState',
+  SET_LINK_PREFERENCE = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings/SetLinkPreference'
 }
 
 export enum Realms {
