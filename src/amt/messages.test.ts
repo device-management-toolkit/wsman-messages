@@ -414,6 +414,26 @@ describe('AMT Tests', () => {
       const response = amtClass.EthernetPortSettings.Put(testBody)
       expect(response).toEqual(correctResponse)
     })
+    it('should create a valid amt_EthernetPortSettings SetLinkPreference wsman message with default instanceID', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings/SetLinkPreference</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout><w:SelectorSet><w:Selector Name="InstanceID">Intel(r) AMT Ethernet Port Settings 1</w:Selector></w:SelectorSet></Header><Body><h:SetLinkPreference_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings"><h:LinkPreference>1</h:LinkPreference><h:Timeout>300</h:Timeout></h:SetLinkPreference_INPUT></Body></Envelope>`
+      const response = amtClass.EthernetPortSettings.SetLinkPreference(1, 300)
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid amt_EthernetPortSettings SetLinkPreference wsman message with custom instanceID', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings/SetLinkPreference</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout><w:SelectorSet><w:Selector Name="InstanceID">Intel(r) AMT Ethernet Port Settings 1</w:Selector></w:SelectorSet></Header><Body><h:SetLinkPreference_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings"><h:LinkPreference>2</h:LinkPreference><h:Timeout>600</h:Timeout></h:SetLinkPreference_INPUT></Body></Envelope>`
+      const response = amtClass.EthernetPortSettings.SetLinkPreference(2, 600, 'Intel(r) AMT Ethernet Port Settings 1')
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid amt_EthernetPortSettings SetLinkPreference wsman message with linkPreference=1 (ME)', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings/SetLinkPreference</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout><w:SelectorSet><w:Selector Name="InstanceID">Intel(r) AMT Ethernet Port Settings 1</w:Selector></w:SelectorSet></Header><Body><h:SetLinkPreference_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings"><h:LinkPreference>1</h:LinkPreference><h:Timeout>600</h:Timeout></h:SetLinkPreference_INPUT></Body></Envelope>`
+      const response = amtClass.EthernetPortSettings.SetLinkPreference(1, 600)
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid amt_EthernetPortSettings SetLinkPreference wsman message with linkPreference=2 (HOST)', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings/SetLinkPreference</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout><w:SelectorSet><w:Selector Name="InstanceID">Intel(r) AMT Ethernet Port Settings 1</w:Selector></w:SelectorSet></Header><Body><h:SetLinkPreference_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_EthernetPortSettings"><h:LinkPreference>2</h:LinkPreference><h:Timeout>120</h:Timeout></h:SetLinkPreference_INPUT></Body></Envelope>`
+      const response = amtClass.EthernetPortSettings.SetLinkPreference(2, 120)
+      expect(response).toEqual(correctResponse)
+    })
   })
   describe('GeneralSettings Tests', () => {
     it('should return a valid amt_GeneralSettings Get wsman message', () => {
