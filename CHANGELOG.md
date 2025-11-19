@@ -1,3 +1,10 @@
+# [5.14.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.13.1...v5.14.0) (2025-11-19)
+
+
+### Features
+
+* add SetLinkPreference API msg compose ([#1136](https://github.com/device-management-toolkit/wsman-messages/issues/1136)) ([5eb8b96](https://github.com/device-management-toolkit/wsman-messages/commit/5eb8b96302be88092478e116f2fb51166cc3b0f0))
+
 ## [5.13.1](https://github.com/device-management-toolkit/wsman-messages/compare/v5.13.0...v5.13.1) (2025-11-06)
 
 # [5.13.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.12.0...v5.13.0) (2025-10-07)
