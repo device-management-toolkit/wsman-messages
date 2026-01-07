@@ -18,6 +18,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
+      id-token: write
       contents: write # for Git to git push
     steps:
       - name: Harden Runner
@@ -46,7 +47,7 @@ jobs:
             # for semantic-release.
         env:
           GITHUB_TOKEN: ${{ secrets.ROSIE_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to @device-management-toolkit
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
@@ -56,5 +57,4 @@ jobs:
           sed -i 's/"version": "[^"]*"/"version": "${{ steps.semantic.outputs.new_release_version }}"/' dist/package.json
           cd dist
           npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
