@@ -1,6 +1,6 @@
 {
   "name": "@device-management-toolkit/wsman-messages",
-  "version": "5.14.3",
+  "version": "5.14.4",
   "description": "A reusable package for AMT libraries",
   "main": "index.js",
   "types": " index.d.ts",
