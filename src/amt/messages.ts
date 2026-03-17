@@ -685,6 +685,17 @@ class TLSCredentialContext extends Base {
     const body = `<Body><h:AMT_TLSCredentialContext xmlns:h="${this.wsmanMessageCreator.resourceUriBase}AMT_TLSCredentialContext"><h:ElementInContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_PublicKeyCertificate</w:ResourceURI><w:SelectorSet><w:Selector Name="InstanceID">${certHandle}</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementInContext><h:ElementProvidingContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_TLSProtocolEndpointCollection</w:ResourceURI><w:SelectorSet><w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementProvidingContext></h:AMT_TLSCredentialContext></Body>`
     return this.wsmanMessageCreator.createXml(header, body)
   }
+
+  /**
+   * Updates an instance of TLSCredentialContext.
+   * @param certHandle Certificate handle.
+   * @returns string
+   */
+  Put = (certHandle: string): string => {
+    const header = this.wsmanMessageCreator.createHeader(BaseActions.PUT, Classes.TLS_CREDENTIAL_CONTEXT)
+    const body = `<Body><h:AMT_TLSCredentialContext xmlns:h="${this.wsmanMessageCreator.resourceUriBase}AMT_TLSCredentialContext"><h:ElementInContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_PublicKeyCertificate</w:ResourceURI><w:SelectorSet><w:Selector Name="InstanceID">${certHandle}</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementInContext><h:ElementProvidingContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_TLSProtocolEndpointCollection</w:ResourceURI><w:SelectorSet><w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementProvidingContext></h:AMT_TLSCredentialContext></Body>`
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
 }
 class TLSSettingData extends Base {
   className = Classes.TLS_SETTING_DATA
