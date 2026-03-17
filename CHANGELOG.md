@@ -1,3 +1,10 @@
+# [5.15.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.5...v5.15.0) (2026-03-17)
+
+
+### Features
+
+* adds Put to AMT TLS Credential Context ([86b1791](https://github.com/device-management-toolkit/wsman-messages/commit/86b179102cdc06492548c989c3a2183b0242270c))
+
 ## [5.14.5](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.4...v5.14.5) (2026-03-11)
 
 ## [5.14.4](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.3...v5.14.4) (2026-02-09)
