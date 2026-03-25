@@ -311,7 +311,6 @@ export class WSManMessageCreator {
   prependObjectKey = (data: any, key: string, prefix: string): void => {
     data[prefix + key] = data[key]
     if (typeof data[key] === 'object') {
-      // eslint-disable-next-line @typescript-eslint/dot-notation
       if (data['namespace'] != null) {
         this.processBody(data[key], 'q:')
       } else {
