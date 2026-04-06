@@ -43,16 +43,16 @@ jobs:
       - name: Test Report
         uses: dorny/test-reporter@1a288b62f8b75c0f433cbfdbc2e4800fbae50bd7 # v1
         continue-on-error: true
-        if: success() || failure() # run this step even if previous step failed
+        if: success() || failure()
         with:
-          name: JEST Tests # Name of the check run which will be created
-          path: junit.xml # Path to test results
-          reporter: jest-junit # Format of test results
+          name: Vitest Tests
+          path: junit.xml
+          reporter: java-junit
           fail-on-error: 'false'
       - uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
         name: Upload Coverage Results
-      - run: mv junit.xml wsman-messages-unit.xml
-      - name: Upload JEST Results
+      - run: mv junit.xml wsman-messages-unit-${{ matrix.node-version }}.xml
+      - name: Upload Test Results
         uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         with:
           name: wsman-messages-unit-test-${{ matrix.node-version }}

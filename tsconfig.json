@@ -9,10 +9,13 @@
     "target": "es2022",
     "strict": true,
     "isolatedModules": true,
-    "types": ["jest"]
+    "types": ["vitest/globals"]
   },
 
   "include": [
     "./src/**/*"
+  ],
+  "exclude": [
+    "./src/**/*.test.ts"
   ]
 }
