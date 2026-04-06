@@ -4,10 +4,10 @@
  **********************************************************************/
 
 // import { CIM } from '../'
-import type { Selector } from '../WSMan'
-import { Base, WSManMessageCreator } from '../WSMan'
-import type { Models, Types } from './'
-import { Actions, Classes, Methods } from './'
+import type { Selector } from '../WSMan.js'
+import { Base, WSManMessageCreator } from '../WSMan.js'
+import type { Models, Types } from './index.js'
+import { Actions, Classes, Methods } from './index.js'
 
 class IEEE8021xCredentialContext extends Base {
   className = Classes.IEEE8021X_CREDENTIAL_CONTEXT
@@ -261,15 +261,11 @@ class HTTPProxyAccessPoint extends Base {
       Actions.UPDATE_PRIORITY,
       Classes.HTTP_PROXY_ACCESS_POINT
     )
-    const body: string = this.wsmanMessageCreator.createBody(
-      'UpdatePriority_INPUT',
-      Classes.HTTP_PROXY_ACCESS_POINT,
-      [
-        {
-          Priority: priority
-        }
-      ]
-    )
+    const body: string = this.wsmanMessageCreator.createBody('UpdatePriority_INPUT', Classes.HTTP_PROXY_ACCESS_POINT, [
+      {
+        Priority: priority
+      }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 

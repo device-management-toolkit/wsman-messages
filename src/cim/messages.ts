@@ -3,10 +3,10 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import type { Selector } from '../WSMan'
-import { Base, WSManMessageCreator } from '../WSMan'
-import type { Types } from './'
-import { Actions, Classes } from './'
+import type { Selector } from '../WSMan.js'
+import { Base, WSManMessageCreator } from '../WSMan.js'
+import type { Types } from './index.js'
+import { Actions, Classes } from './index.js'
 
 class BIOSElement extends Base {
   className = Classes.BIOS_ELEMENT

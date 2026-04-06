@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import type { Types } from './types'
-import type { CIM } from '../'
+import type { Types } from './types.js'
+import type { CIM } from '../index.js'
 
 export namespace Models {
   export interface AMTAuthenticateObject {

@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import type { Selector } from '../WSMan'
-import type { Models } from './'
-import { Messages } from './'
+import type { Selector } from '../WSMan.js'
+import type { Models } from './index.js'
+import { Messages } from './index.js'
 
 describe('IPS Tests', () => {
   let messageId: number

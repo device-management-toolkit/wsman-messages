@@ -2,13 +2,14 @@
   "name": "@device-management-toolkit/wsman-messages",
   "version": "5.14.5",
   "description": "A reusable package for AMT libraries",
+  "type": "module",
   "main": "index.js",
-  "types": " index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "prepublishOnly": "cp package.json dist",
     "compile": "tsc",
     "lint": "eslint .",
-    "test": "jest --detectOpenHandles --forceExit --coverage",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --detectOpenHandles --forceExit --coverage",
     "prettify": "npx prettier --write .",
     "ci-prettify": "npx prettier --check ."
   },
@@ -35,7 +36,7 @@
     "jest": "^30.0.0",
     "jest-junit": "^16.0.0",
     "prettier-config-standard": "^7.0.0",
-    "prettier-plugin-multiline-arrays": "^4.0.1",
+    "prettier-plugin-multiline-arrays": "^4.1.5",
     "ts-jest": "^29.4.0",
     "typescript": "^6.0.2",
     "typescript-eslint": "8.58.0"

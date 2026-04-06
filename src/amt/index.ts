@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { Actions, Realms } from './actions'
-import { Classes } from './classes'
-import { Messages } from './messages'
-import { Methods } from './methods'
-import type { Models } from './models'
-import type { Types } from './types'
+import { Actions, Realms } from './actions.js'
+import { Classes } from './classes.js'
+import { Messages } from './messages.js'
+import { Methods } from './methods.js'
+import type { Models } from './models.js'
+import type { Types } from './types.js'
 export { Methods, Actions, Classes, Messages, Realms }
 export type { Types, Models }

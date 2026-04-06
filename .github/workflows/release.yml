@@ -53,4 +53,3 @@ jobs:
           sed -i 's/"version": "[^"]*"/"version": "${{ steps.semantic.outputs.new_release_version }}"/' dist/package.json
           cd dist
           npm publish
-
