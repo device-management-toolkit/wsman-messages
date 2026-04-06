@@ -3,12 +3,12 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "sourceMap": true,
-    "moduleResolution": "node16",
+    "moduleResolution": "nodenext",
     "declaration": true,
-    "esModuleInterop": true,
-    "module": "node16",
+    "module": "nodenext",
     "target": "es2022",
     "strict": true,
+    "isolatedModules": true,
     "types": ["jest"]
   },
 

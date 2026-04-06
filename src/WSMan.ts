@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  ***********************************************************************/
 
-import type { AMT, CIM, IPS } from '.'
+import type { AMT, CIM, IPS } from './index.js'
 
 export interface Selector {
   name: string | undefined

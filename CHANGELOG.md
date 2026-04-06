@@ -1,9 +1,8 @@
 # [5.15.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.5...v5.15.0) (2026-03-17)
 
-
 ### Features
 
-* adds Put to AMT TLS Credential Context ([86b1791](https://github.com/device-management-toolkit/wsman-messages/commit/86b179102cdc06492548c989c3a2183b0242270c))
+- adds Put to AMT TLS Credential Context ([86b1791](https://github.com/device-management-toolkit/wsman-messages/commit/86b179102cdc06492548c989c3a2183b0242270c))
 
 ## [5.14.5](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.4...v5.14.5) (2026-03-11)
 
@@ -19,26 +18,23 @@
 
 # [5.14.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.13.1...v5.14.0) (2025-11-19)
 
-
 ### Features
 
-* add SetLinkPreference API msg compose ([#1136](https://github.com/device-management-toolkit/wsman-messages/issues/1136)) ([5eb8b96](https://github.com/device-management-toolkit/wsman-messages/commit/5eb8b96302be88092478e116f2fb51166cc3b0f0))
+- add SetLinkPreference API msg compose ([#1136](https://github.com/device-management-toolkit/wsman-messages/issues/1136)) ([5eb8b96](https://github.com/device-management-toolkit/wsman-messages/commit/5eb8b96302be88092478e116f2fb51166cc3b0f0))
 
 ## [5.13.1](https://github.com/device-management-toolkit/wsman-messages/compare/v5.13.0...v5.13.1) (2025-11-06)
 
 # [5.13.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.12.0...v5.13.0) (2025-10-07)
 
-
 ### Features
 
-* **ips:** adds HTTP Proxy Access Point ([#1114](https://github.com/device-management-toolkit/wsman-messages/issues/1114)) ([b48dd5e](https://github.com/device-management-toolkit/wsman-messages/commit/b48dd5ecebf88a8e1e53cc17716dca85d70a7bb9))
+- **ips:** adds HTTP Proxy Access Point ([#1114](https://github.com/device-management-toolkit/wsman-messages/issues/1114)) ([b48dd5e](https://github.com/device-management-toolkit/wsman-messages/commit/b48dd5ecebf88a8e1e53cc17716dca85d70a7bb9))
 
 # [5.12.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.11.0...v5.12.0) (2025-09-30)
 
-
 ### Features
 
-* **ips:** add screen and redirection setting data ([#1106](https://github.com/device-management-toolkit/wsman-messages/issues/1106)) ([96e043f](https://github.com/device-management-toolkit/wsman-messages/commit/96e043fdf1b3d96b17d7e8aeb1781aeae6c0facc))
+- **ips:** add screen and redirection setting data ([#1106](https://github.com/device-management-toolkit/wsman-messages/issues/1106)) ([96e043f](https://github.com/device-management-toolkit/wsman-messages/commit/96e043fdf1b3d96b17d7e8aeb1781aeae6c0facc))
 
 # [5.11.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.10.0...v5.11.0) (2025-09-24)
 

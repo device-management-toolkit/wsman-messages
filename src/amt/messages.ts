@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { CIM } from '../'
-import { Base, BaseActions, WSManErrors, WSManMessageCreator } from '../WSMan'
-import { Classes, Actions, Methods } from './'
-import type { Models, Types } from './'
-import type { IPS } from '../'
-import type { Selector } from '../WSMan'
+import { CIM } from '../index.js'
+import { Base, BaseActions, WSManErrors, WSManMessageCreator } from '../WSMan.js'
+import { Classes, Actions, Methods } from './index.js'
+import type { Models, Types } from './index.js'
+import type { IPS } from '../index.js'
+import type { Selector } from '../WSMan.js'
 
 class AlarmClockService extends Base {
   className = Classes.ALARM_CLOCK_SERVICE
@@ -288,8 +288,7 @@ class EthernetPortSettings extends Base {
     const header = this.wsmanMessageCreator.createHeader(Actions.SET_LINK_PREFERENCE, this.className, selector)
     const body = this.wsmanMessageCreator.createBody('SetLinkPreference_INPUT', this.className, [
       { LinkPreference: linkPreference },
-      { Timeout: timeout }
-    ])
+      { Timeout: timeout }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }

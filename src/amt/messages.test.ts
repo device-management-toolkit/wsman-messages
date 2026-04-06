@@ -3,11 +3,11 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { WSManErrors } from '../WSMan'
-import { Messages, Realms } from './'
-import type { Models } from './'
-import type { CIM } from '../'
-import type { Selector } from '../WSMan'
+import { WSManErrors } from '../WSMan.js'
+import { Messages, Realms } from './index.js'
+import type { Models } from './index.js'
+import type { CIM } from '../index.js'
+import type { Selector } from '../WSMan.js'
 
 describe('AMT Tests', () => {
   let messageId = 0

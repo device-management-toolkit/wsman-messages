@@ -3,9 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { WSManMessageCreator, BaseActions } from './WSMan'
-import { CIM, AMT } from './index'
-import type { Selector } from './WSMan'
+import { WSManMessageCreator, BaseActions } from './WSMan.js'
+import { CIM, AMT } from './index.js'
+import type { Selector } from './WSMan.js'
 
 const wsmanMessageCreator = new WSManMessageCreator('http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/')
 describe('WSManMessageCreator Tests', () => {

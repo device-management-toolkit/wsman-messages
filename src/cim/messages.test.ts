@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import { Messages } from '.'
-import type { CIM } from '..'
+import { Messages } from './index.js'
+import type { CIM } from '../index.js'
 
 describe('CIM Tests', () => {
   let messageId: number

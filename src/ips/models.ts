@@ -3,8 +3,8 @@
  * SPDX-License-Identifier: Apache-2.0
  **********************************************************************/
 
-import type { CIM, Common } from '../'
-import type { Types } from './types'
+import type { CIM, Common } from '../index.js'
+import type { Types } from './types.js'
 
 export namespace Models {
   export interface HostBasedSetupService extends CIM.Models.SecurityService {
