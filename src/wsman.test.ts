@@ -155,7 +155,7 @@ describe('WSManMessageCreator Tests', () => {
           DDNSTTL: '900'
         }
       }
-      const key = Object.keys(data)[0]
+      const key = Object.keys(data)[0] as keyof typeof data
       const result = wsmanMessageCreator.createBody('test_INPUT', key, [data[key]])
       expect(result).toBe(
         '<Body><h:test_INPUT xmlns:h="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/AMT_GeneralSettings"><h:AMTNetworkEnabled>1</h:AMTNetworkEnabled><h:DDNSPeriodicUpdateInterval>1440</h:DDNSPeriodicUpdateInterval><h:DDNSTTL>900</h:DDNSTTL></h:test_INPUT></Body>'
@@ -174,7 +174,7 @@ describe('WSManMessageCreator Tests', () => {
           }
         }
       }
-      const key = Object.keys(data)[0]
+      const key = Object.keys(data)[0] as keyof typeof data
       const result = wsmanMessageCreator.createBody('test_INPUT', key, [data[key]])
       expect(result).toBe(
         '<Body><h:test_INPUT xmlns:h="http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/AMT_GeneralSettings"><h:AMTNetworkEnabled>1</h:AMTNetworkEnabled><h:DDNSPeriodicUpdateInterval>1440</h:DDNSPeriodicUpdateInterval><h:DDNSTTL>900</h:DDNSTTL><h:Settings><h:Set1>1</h:Set1><h:Set2>7</h:Set2><h:Set3>8</h:Set3></h:Settings></h:test_INPUT></Body>'

@@ -213,13 +213,13 @@ export class WSManMessageCreator {
     if (!Array.isArray(data)) {
       data = [data]
     }
-    data?.forEach((element) => {
+    data?.forEach((element: any) => {
       this.processBody(element)
     })
     let str = '<Body>'
     str += `<h:${method} xmlns:h="${this.resourceUriBase}${wsmanClass}">`
     if (data) {
-      data.forEach((element) => {
+      data.forEach((element: any) => {
         str += this.OBJtoXML(element)
       })
     }
@@ -323,7 +323,7 @@ export class WSManMessageCreator {
 
 export class Base {
   wsmanMessageCreator: WSManMessageCreator
-  className: CIM.Classes | AMT.Classes | IPS.Classes
+  className!: CIM.Classes | AMT.Classes | IPS.Classes
   constructor(wsmanMessageCreator: WSManMessageCreator) {
     this.wsmanMessageCreator = wsmanMessageCreator
   }
