@@ -16,6 +16,8 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+  checks: write
+  pull-requests: write
 
 jobs:
   build:
@@ -41,14 +43,12 @@ jobs:
       - run: npm run compile --if-present
       - run: npm test
       - name: Test Report
-        uses: dorny/test-reporter@1a288b62f8b75c0f433cbfdbc2e4800fbae50bd7 # v1
-        continue-on-error: true
-        if: success() || failure()
+        uses: EnricoMi/publish-unit-test-result-action@c950f6fb443cb5af20a377fd0dfaa78838901040 # v2.23.0
+        if: always()
         with:
-          name: Vitest Tests
-          path: junit.xml
-          reporter: java-junit
-          fail-on-error: 'false'
+          files: junit.xml
+          check_name: Vitest Tests
+          comment_title: Test Results
       - uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
         name: Upload Coverage Results
       - run: mv junit.xml wsman-messages-unit-${{ matrix.node-version }}.xml
