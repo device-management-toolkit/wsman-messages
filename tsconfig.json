@@ -2,17 +2,15 @@
   "compilerOptions": {
     "strictNullChecks": true,
     "outDir": "./dist",
+    "rootDir": "./src",
     "sourceMap": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node16",
     "declaration": true,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "allowJs": true,
-    "target": "es2019",
+    "module": "node16",
+    "target": "es2022",
     "strict": false,
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "types": ["jest"]
   },
 
   "include": [
