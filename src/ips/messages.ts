@@ -180,7 +180,7 @@ class OptInService extends Base {
    * @returns string
    */
   Put = (optInServiceResponse: Models.OptInServiceResponse): string => {
-    const key = Object.keys(optInServiceResponse)[0]
+    const key = Object.keys(optInServiceResponse)[0] as keyof Models.OptInServiceResponse
     return this.protectedPut(optInServiceResponse[key], false)
   }
 
