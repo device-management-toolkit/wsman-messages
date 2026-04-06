@@ -9,7 +9,7 @@
     "prepublishOnly": "cp package.json dist",
     "compile": "tsc",
     "lint": "eslint .",
-    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --detectOpenHandles --forceExit --coverage",
+    "test": "vitest run --coverage",
     "prettify": "npx prettier --write .",
     "ci-prettify": "npx prettier --check ."
   },
@@ -29,16 +29,14 @@
   "homepage": "https://github.com/device-management-toolkit/wsman-messages#readme",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/jest": "^30.0.0",
     "@types/node": "^25.0.0",
+    "@vitest/coverage-v8": "^4.1.2",
     "eslint": "^10.1.0",
     "eslint-config-prettier": "^10.0.1",
-    "jest": "^30.0.0",
-    "jest-junit": "^16.0.0",
     "prettier-config-standard": "^7.0.0",
     "prettier-plugin-multiline-arrays": "^4.1.5",
-    "ts-jest": "^29.4.0",
     "typescript": "^6.0.2",
-    "typescript-eslint": "8.58.0"
+    "typescript-eslint": "8.58.0",
+    "vitest": "^4.1.2"
   }
 }
