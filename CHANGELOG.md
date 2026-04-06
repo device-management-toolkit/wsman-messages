@@ -1,3 +1,13 @@
+# [6.0.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.15.0...v6.0.0) (2026-04-06)
+
+
+* build!: moves to ESM from CJS ([6c05e50](https://github.com/device-management-toolkit/wsman-messages/commit/6c05e503a7f2556d41cd91ea5e5a0d91bb3339b7))
+
+
+### BREAKING CHANGES
+
+* require() will no longer work with this package.
+
 # [5.15.0](https://github.com/device-management-toolkit/wsman-messages/compare/v5.14.5...v5.15.0) (2026-03-17)
 
 ### Features
