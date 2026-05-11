@@ -16,19 +16,20 @@ Each commit message consists of a **header**, a **body** and a **footer**. The h
 
 The **header** with **type** is mandatory. The **scope** of the header is optional as far as the automated PR checks are concerned, but be advised that PR reviewers **may request** you provide an applicable scope.
 
-Any line of the commit message should no be longer 72 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
+Any line of the commit message should not be longer than 72 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
 
-The footer should contain a reference to an Azure Boards ticket (e.g. AB#[number]).
+The footer should contain a reference to a GitHub issue using the [GitHub closing-keyword syntax](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) (e.g. `Closes: #1234`, `Fixes: #1234`, or `Resolves: #1234`) so the issue auto-closes when the PR merges.
 
 Example 1:
 
 ```
-feat(telemetry): Add new MQTT events
+feat(amt): Add AlarmClockService AddAlarm message
 
-Events are now emitted over various /mps topics on MQTT for success/failures
-as they occur throughout the service.
+Emits the IPS_AlarmClockOccurrence-bearing AddAlarm_INPUT envelope for
+AMT_AlarmClockService so consumers can schedule device wake events
+without hand-authoring the nested IPS namespace.
 
-Resolves: AB#2222
+Closes: #1234
 ```
 
 ### Revert
@@ -48,11 +49,13 @@ Must be one of the following:
 - **test**: Adding missing tests or correcting existing tests
 - **build**: Changes that affect the CI/CD pipeline or build system or external dependencies (example scopes: travis, jenkins, makefile)
 - **ci**: Changes provided by DevOps for CI purposes.
+- **chore**: Maintenance work not covered by the other types (cuts a patch release per `.releaserc.json`).
 - **revert**: Reverts a previous commit.
 
 ### Scope
 
-Should be one of the following:
+The allowed scopes are enforced by commitlint (`.github/commitlint.config.cjs`). Any value not on the list below will fail the PR check.
+
 Modules:
 
 - **amt**: A change or addition to AMT class
@@ -92,10 +95,10 @@ Further paragraphs come after blank lines.
 
 ### Footer
 
-The footer should contain a reference to JIRA ticket (e.g. SL6-0000) that this commit **Closes** or **Resolves**.
+The footer should contain a reference to the GitHub issue this commit **Closes**, **Fixes**, or **Resolves** (e.g. `Closes: #1234`). See [GitHub's closing-keyword syntax](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) for the keywords that trigger auto-close on merge.
 The footer should contain any information about **Breaking Changes**.
 
-**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines.
+**Breaking Changes** should start with the word `BREAKING CHANGE:` with a space or two newlines. Because this package is published to npm and consumed by external services (MPS, RPS, and downstream integrators), use a `BREAKING CHANGE:` footer for any change to emitted XML, exported TypeScript shapes, or subpath import layout — semantic-release will cut a major version from it.
 
 ### Pull Requests practices
 
