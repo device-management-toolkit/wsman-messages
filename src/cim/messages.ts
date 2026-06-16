@@ -86,6 +86,9 @@ class KVMRedirectionSAP extends Base {
 class MediaAccessDevice extends Base {
   className = Classes.MEDIA_ACCESS_DEVICE
 }
+class OpaqueManagementData extends Base {
+  className = Classes.OPAQUE_MANAGEMENT_DATA
+}
 class PhysicalMemory extends Base {
   className = Classes.PHYSICAL_MEMORY
 }
@@ -164,6 +167,7 @@ export class Messages {
   public IEEE8021xSettings = new IEEE8021xSettings(this.wsmanMessageCreator)
   public KVMRedirectionSAP = new KVMRedirectionSAP(this.wsmanMessageCreator)
   public MediaAccessDevice = new MediaAccessDevice(this.wsmanMessageCreator)
+  public OpaqueManagementData = new OpaqueManagementData(this.wsmanMessageCreator)
   public PhysicalMemory = new PhysicalMemory(this.wsmanMessageCreator)
   public PhysicalPackage = new PhysicalPackage(this.wsmanMessageCreator)
   public PowerManagementService = new PowerManagementService(this.wsmanMessageCreator)
