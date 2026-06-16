@@ -200,6 +200,17 @@ export namespace Models {
     Security?: Types.MediaAccessDevice.Security // ValueMap={1, 2, 3, 4, 5, 6, 7} Values={Other, Unknown, None, Read Only, Locked Out, Boot Bypass, Boot Bypass and Read Only}
   }
 
+  export interface OpaqueManagementData extends LogicalDevice {
+    // An optional property that may be used to opaquely and uniquely identify an instance of this class within the scope of the instantiating Namespace.
+    InstanceID?: string
+    // The maximum number of bytes of opaque management data that the instance may contain.
+    MaxSize?: number // uint64
+    // Describes the format of the opaque management data.
+    DataFormat?: string
+    // The number of bytes of opaque management data in the instance.
+    DataSize?: number // uint64
+  }
+
   export interface Service extends EnabledLogicalElement {
     SystemCreationClassName?: string // MaxLen=256
     SystemName?: string // MaxLen=256
