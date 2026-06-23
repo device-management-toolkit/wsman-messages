@@ -428,4 +428,37 @@ export namespace Models {
     Algorithm?: string
     Protocol?: string
   }
+
+  // CIM_OpaqueManagementDataOwner is an association (subclass of CIM_AssociatedPrivilege)
+  // that models the ownership relationship between a CIM_Identity and an opaque
+  // management data block. The owner holds privileges over the block and is
+  // responsible for its existence and storage quota.
+  export interface OpaqueManagementDataOwner extends ManagedElement {
+    // The ManagedElement (e.g. CIM_Identity) that owns the opaque management data.
+    Subject: {
+      Address: string
+      ReferenceParameters: {
+        ResourceURI: string
+        SelectorSet: {
+          Selector: string[]
+        }
+      }
+    }
+    // The opaque management data (CIM_ManagedElement) that is owned.
+    Target: {
+      Address: string
+      ReferenceParameters: {
+        ResourceURI: string
+        SelectorSet: {
+          Selector: string[]
+        }
+      }
+    }
+    PrivilegeGranted?: boolean // When true, the privilege is granted; when false, it is denied.
+    RepresentsAuthorizationRights?: boolean
+    UseKey?: string
+    Activities?: number[] // uint16[] ValueMap={1, 2, 3, 4, 5, 6, 7, ..} Values={Other, Create, Delete, Detect, Read, Write, Execute, DMTF Reserved}
+    ActivityQualifiers?: string[]
+    QualifierFormats?: number[] // uint16[] ValueMap={2, 3, 4, 5, 6, 7, 8, 9, ..} Values={Class Name, <Class.>Property, <Class.>Method, Object Reference, Namespace, URL, Variable, Desktop, DMTF Reserved}
+  }
 }

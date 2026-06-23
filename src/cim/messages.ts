@@ -150,6 +150,10 @@ class CredentialContext extends Base {
   className = Classes.CREDENTIAL_CONTEXT
 }
 
+class OpaqueManagementDataOwner extends Base {
+  className = Classes.OPAQUE_MANAGEMENT_DATA_OWNER
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -175,4 +179,5 @@ export class Messages {
   public WiFiPort = new WiFiPort(this.wsmanMessageCreator)
   public ConcreteDependency = new ConcreteDependency(this.wsmanMessageCreator)
   public CredentialContext = new CredentialContext(this.wsmanMessageCreator)
+  public OpaqueManagementDataOwner = new OpaqueManagementDataOwner(this.wsmanMessageCreator)
 }
