@@ -12,5 +12,13 @@ export enum Methods {
   SET_BOOT_CONFIG_ROLE = 'SetBootConfigRole',
   CHANGE_BOOT_ORDER = 'ChangeBootOrder',
   REQUEST_POWER_STATE_CHANGE = 'RequestPowerStateChange',
-  REQUEST_STATE_CHANGE = 'RequestStateChange'
+  REQUEST_STATE_CHANGE = 'RequestStateChange',
+  READ = 'Read',
+  WRITE = 'Write',
+  CREATE = 'Create',
+  LOCK = 'Lock',
+  ASSIGN_ACCESS = 'AssignAccess',
+  REASSIGN_OWNERSHIP = 'ReassignOwnership',
+  EXPORT_TO_URI = 'ExportToURI',
+  IMPORT_FROM_URI = 'ImportFromURI'
 }

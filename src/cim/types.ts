@@ -718,4 +718,14 @@ export namespace Types {
      */
     export type FailThroughSupported = 0 | 1 | 2
   }
+
+  export namespace OpaqueManagementDataService {
+    /**
+     * The activities (access rights) being granted to an Identity for an opaque
+     * management data block by the AssignAccess method.
+     *
+     * Read: 5 | Write: 6
+     */
+    export type Activities = 5 | 6
+  }
 }

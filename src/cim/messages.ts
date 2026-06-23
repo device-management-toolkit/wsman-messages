@@ -4,9 +4,9 @@
  **********************************************************************/
 
 import type { Selector } from '../WSMan.js'
-import { Base, WSManMessageCreator } from '../WSMan.js'
-import type { Types } from './index.js'
-import { Actions, Classes } from './index.js'
+import { Base, WSManErrors, WSManMessageCreator } from '../WSMan.js'
+import type { Models, Types } from './index.js'
+import { Actions, Classes, Methods } from './index.js'
 
 class BIOSElement extends Base {
   className = Classes.BIOS_ELEMENT
@@ -153,6 +153,156 @@ class CredentialContext extends Base {
   className = Classes.CREDENTIAL_CONTEXT
 }
 
+class OpaqueManagementDataService extends Base {
+  className = Classes.OPAQUE_MANAGEMENT_DATA_SERVICE
+
+  /**
+   * Builds the Endpoint Reference XML for a referenced CIM instance, wrapped in the
+   * supplied input-parameter element (e.g. <h:OpaqueManagementData>). The instance is
+   * selected by a single key selector (InstanceID for most CIM classes, DeviceID for
+   * CIM_StorageExtent).
+   */
+  private readonly reference = (
+    parameter: string,
+    wsmanClass: string,
+    selectorName: string,
+    selectorValue: string
+  ): string =>
+    `<h:${parameter}><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">${this.wsmanMessageCreator.resourceUriBase}${wsmanClass}</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="${selectorName}">${selectorValue}</Selector></SelectorSet></ReferenceParameters></h:${parameter}>`
+
+  /** Endpoint Reference to a CIM_OpaqueManagementData block, selected by its InstanceID. */
+  private readonly opaqueDataReference = (handle: string): string =>
+    this.reference('OpaqueManagementData', Classes.OPAQUE_MANAGEMENT_DATA, 'InstanceID', handle)
+
+  /** Wraps method parameters in the SOAP Body and assembles the full envelope. */
+  private readonly createMethod = (action: Actions, method: Methods, parameters: string): string => {
+    const header = this.wsmanMessageCreator.createHeader(action, this.className)
+    const body = `<Body><h:${method}_INPUT xmlns:h="${this.wsmanMessageCreator.resourceUriBase}${this.className}">${parameters}</h:${method}_INPUT></Body>`
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
+
+  /**
+   * Reads a block of octets from an opaque management data block.
+   * @param data Models.OpaqueManagementDataService.Read - the block Handle plus optional Length, Offset and LockToken.
+   * @returns string
+   */
+  Read = (data: Models.OpaqueManagementDataService.Read): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = ''
+    if (data.Length != null) parameters += `<h:Length>${data.Length.toString()}</h:Length>`
+    if (data.Offset != null) parameters += `<h:Offset>${data.Offset.toString()}</h:Offset>`
+    if (data.LockToken != null) parameters += `<h:LockToken>${data.LockToken}</h:LockToken>`
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.READ, Methods.READ, parameters)
+  }
+
+  /**
+   * Writes a block of octets to an opaque management data block.
+   * @param data Models.OpaqueManagementDataService.Write - the block Handle and Data plus optional Length, Offset, Truncate and LockToken.
+   * @returns string
+   */
+  Write = (data: Models.OpaqueManagementDataService.Write): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    if (data?.Data == null) throw new Error(WSManErrors.DATA)
+    let parameters = ''
+    if (data.Length != null) parameters += `<h:Length>${data.Length.toString()}</h:Length>`
+    if (data.Offset != null) parameters += `<h:Offset>${data.Offset.toString()}</h:Offset>`
+    if (data.Truncate != null) parameters += `<h:Truncate>${data.Truncate.toString()}</h:Truncate>`
+    parameters += `<h:Data>${data.Data}</h:Data>`
+    if (data.LockToken != null) parameters += `<h:LockToken>${data.LockToken}</h:LockToken>`
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.WRITE, Methods.WRITE, parameters)
+  }
+
+  /**
+   * Allocates a new opaque management data block.
+   * @param data Models.OpaqueManagementDataService.Create - optional DataFormat, ElementName, MaxSize, BasedOnExtent and Owner.
+   * @returns string
+   */
+  Create = (data: Models.OpaqueManagementDataService.Create = {}): string => {
+    let parameters = ''
+    if (data.DataFormat != null) parameters += `<h:DataFormat>${data.DataFormat}</h:DataFormat>`
+    if (data.ElementName != null) parameters += `<h:ElementName>${data.ElementName}</h:ElementName>`
+    if (data.MaxSize != null) parameters += `<h:MaxSize>${data.MaxSize.toString()}</h:MaxSize>`
+    if (data.BasedOnExtent != null)
+      parameters += this.reference('BasedOnExtent', 'CIM_StorageExtent', 'DeviceID', data.BasedOnExtent)
+    if (data.Owner != null) parameters += this.reference('Owner', 'CIM_Identity', 'InstanceID', data.Owner)
+    return this.createMethod(Actions.CREATE, Methods.CREATE, parameters)
+  }
+
+  /**
+   * Acquires or releases a lock on an opaque management data block.
+   * @param data Models.OpaqueManagementDataService.Lock - the block Handle, the Lock flag and an optional LockToken.
+   * @returns string
+   */
+  Lock = (data: Models.OpaqueManagementDataService.Lock): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = `<h:Lock>${data.Lock.toString()}</h:Lock>`
+    if (data.LockToken != null) parameters += `<h:LockToken>${data.LockToken}</h:LockToken>`
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.LOCK, Methods.LOCK, parameters)
+  }
+
+  /**
+   * Grants an identity a set of access rights (activities) to an opaque management data block.
+   * @param data Models.OpaqueManagementDataService.AssignAccess - the block Handle, the Identity and the Activities being granted.
+   * @returns string
+   */
+  AssignAccess = (data: Models.OpaqueManagementDataService.AssignAccess): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = ''
+    data.Activities?.forEach((activity) => {
+      parameters += `<h:Activities>${activity.toString()}</h:Activities>`
+    })
+    parameters += this.reference('Identity', 'CIM_Identity', 'InstanceID', data.Identity)
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.ASSIGN_ACCESS, Methods.ASSIGN_ACCESS, parameters)
+  }
+
+  /**
+   * Transfers ownership of an opaque management data block to a new identity.
+   * @param data Models.OpaqueManagementDataService.ReassignOwnership - the block Handle and the NewOwner.
+   * @returns string
+   */
+  ReassignOwnership = (data: Models.OpaqueManagementDataService.ReassignOwnership): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = this.reference('NewOwner', 'CIM_Identity', 'InstanceID', data.NewOwner)
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.REASSIGN_OWNERSHIP, Methods.REASSIGN_OWNERSHIP, parameters)
+  }
+
+  /**
+   * Exports the contents of an opaque management data block to an external URI.
+   * @param data Models.OpaqueManagementDataService.ExportToURI - the block Handle and ExportURI plus optional Length, Offset and LockToken.
+   * @returns string
+   */
+  ExportToURI = (data: Models.OpaqueManagementDataService.ExportToURI): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = `<h:ExportURI>${data.ExportURI}</h:ExportURI>`
+    if (data.Length != null) parameters += `<h:Length>${data.Length.toString()}</h:Length>`
+    if (data.Offset != null) parameters += `<h:Offset>${data.Offset.toString()}</h:Offset>`
+    if (data.LockToken != null) parameters += `<h:LockToken>${data.LockToken}</h:LockToken>`
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.EXPORT_TO_URI, Methods.EXPORT_TO_URI, parameters)
+  }
+
+  /**
+   * Imports data from an external URI into an opaque management data block.
+   * @param data Models.OpaqueManagementDataService.ImportFromURI - the block Handle and ImportURI plus optional Length, Offset, Truncate and LockToken.
+   * @returns string
+   */
+  ImportFromURI = (data: Models.OpaqueManagementDataService.ImportFromURI): string => {
+    if (data?.Handle == null) throw new Error(WSManErrors.INSTANCE_ID)
+    let parameters = `<h:ImportURI>${data.ImportURI}</h:ImportURI>`
+    if (data.Length != null) parameters += `<h:Length>${data.Length.toString()}</h:Length>`
+    if (data.Offset != null) parameters += `<h:Offset>${data.Offset.toString()}</h:Offset>`
+    if (data.Truncate != null) parameters += `<h:Truncate>${data.Truncate.toString()}</h:Truncate>`
+    if (data.LockToken != null) parameters += `<h:LockToken>${data.LockToken}</h:LockToken>`
+    parameters += this.opaqueDataReference(data.Handle)
+    return this.createMethod(Actions.IMPORT_FROM_URI, Methods.IMPORT_FROM_URI, parameters)
+  }
+}
+
 export class Messages {
   readonly resourceUriBase: string = 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/'
   wsmanMessageCreator: WSManMessageCreator = new WSManMessageCreator(this.resourceUriBase)
@@ -179,4 +329,5 @@ export class Messages {
   public WiFiPort = new WiFiPort(this.wsmanMessageCreator)
   public ConcreteDependency = new ConcreteDependency(this.wsmanMessageCreator)
   public CredentialContext = new CredentialContext(this.wsmanMessageCreator)
+  public OpaqueManagementDataService = new OpaqueManagementDataService(this.wsmanMessageCreator)
 }

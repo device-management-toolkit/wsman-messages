@@ -5,6 +5,7 @@
 
 import { Messages } from './index.js'
 import type { CIM } from '../index.js'
+import { WSManErrors } from '../WSMan.js'
 
 describe('CIM Tests', () => {
   let messageId: number
@@ -455,6 +456,106 @@ describe('CIM Tests', () => {
     it('should create a valid cim_CredentialContext Pull wsman message', () => {
       const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Pull</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_CredentialContext</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Pull xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration"><EnumerationContext>${enumerationContext}</EnumerationContext><MaxElements>999</MaxElements><MaxCharacters>99999</MaxCharacters></Pull></Body></Envelope>`
       const response = cimClass.CredentialContext.Pull(enumerationContext)
+      expect(response).toEqual(correctResponse)
+    })
+  })
+
+  describe('cim_OpaqueManagementDataService Tests', () => {
+    const handle = 'Intel(r) AMT:1'
+    const resourceUri = 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService'
+    const inputNamespace = `xmlns:h="${resourceUri}"`
+    // Endpoint Reference to the CIM_OpaqueManagementData block being operated on.
+    const dataReference = `<h:OpaqueManagementData><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementData</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="InstanceID">${handle}</Selector></SelectorSet></ReferenceParameters></h:OpaqueManagementData>`
+    it('should create a valid cim_OpaqueManagementDataService Get wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Get()
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Enumerate wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Enumerate</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Enumerate xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration" /></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Enumerate()
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Pull wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Pull</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Pull xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration"><EnumerationContext>${enumerationContext}</EnumerationContext><MaxElements>999</MaxElements><MaxCharacters>99999</MaxCharacters></Pull></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Pull(enumerationContext)
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Read wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/Read</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:Read_INPUT ${inputNamespace}><h:Length>1024</h:Length><h:Offset>0</h:Offset>${dataReference}</h:Read_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Read({ Handle: handle, Length: 1024, Offset: 0 })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should throw an error when calling Read without a Handle', () => {
+      expect(() => cimClass.OpaqueManagementDataService.Read({} as any)).toThrow(WSManErrors.INSTANCE_ID)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Write wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/Write</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:Write_INPUT ${inputNamespace}><h:Length>6</h:Length><h:Offset>0</h:Offset><h:Truncate>true</h:Truncate><h:Data>AAECAwQF</h:Data>${dataReference}</h:Write_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Write({
+        Handle: handle,
+        Data: 'AAECAwQF',
+        Length: 6,
+        Offset: 0,
+        Truncate: true
+      })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should throw an error when calling Write without Data', () => {
+      expect(() => cimClass.OpaqueManagementDataService.Write({ Handle: handle } as any)).toThrow(WSManErrors.DATA)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Create wsman message', () => {
+      const ownerReference = `<h:Owner><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_Identity</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="InstanceID">AdminAcl</Selector></SelectorSet></ReferenceParameters></h:Owner>`
+      const extentReference = `<h:BasedOnExtent><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_StorageExtent</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="DeviceID">Extent0</Selector></SelectorSet></ReferenceParameters></h:BasedOnExtent>`
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/Create</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:Create_INPUT ${inputNamespace}><h:DataFormat>text</h:DataFormat><h:ElementName>MyData</h:ElementName><h:MaxSize>4096</h:MaxSize>${extentReference}${ownerReference}</h:Create_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Create({
+        DataFormat: 'text',
+        ElementName: 'MyData',
+        MaxSize: 4096,
+        BasedOnExtent: 'Extent0',
+        Owner: 'AdminAcl'
+      })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService Lock wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/Lock</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:Lock_INPUT ${inputNamespace}><h:Lock>true</h:Lock>${dataReference}</h:Lock_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.Lock({ Handle: handle, Lock: true })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService AssignAccess wsman message', () => {
+      const identityReference = `<h:Identity><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_Identity</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="InstanceID">AdminAcl</Selector></SelectorSet></ReferenceParameters></h:Identity>`
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/AssignAccess</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:AssignAccess_INPUT ${inputNamespace}><h:Activities>5</h:Activities><h:Activities>6</h:Activities>${identityReference}${dataReference}</h:AssignAccess_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.AssignAccess({
+        Handle: handle,
+        Identity: 'AdminAcl',
+        Activities: [5, 6]
+      })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService ReassignOwnership wsman message', () => {
+      const newOwnerReference = `<h:NewOwner><Address xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing">http://schemas.xmlsoap.org/ws/2004/08/addressing</Address><ReferenceParameters xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing"><ResourceURI xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd">http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_Identity</ResourceURI><SelectorSet xmlns="http://schemas.dmtf.org/wbem/wsman/1/wsman.xsd"><Selector Name="InstanceID">User2</Selector></SelectorSet></ReferenceParameters></h:NewOwner>`
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/ReassignOwnership</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:ReassignOwnership_INPUT ${inputNamespace}>${newOwnerReference}${dataReference}</h:ReassignOwnership_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.ReassignOwnership({ Handle: handle, NewOwner: 'User2' })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService ExportToURI wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/ExportToURI</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:ExportToURI_INPUT ${inputNamespace}><h:ExportURI>https://example.com/blob</h:ExportURI><h:Length>512</h:Length><h:Offset>0</h:Offset>${dataReference}</h:ExportToURI_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.ExportToURI({
+        Handle: handle,
+        ExportURI: 'https://example.com/blob',
+        Length: 512,
+        Offset: 0
+      })
+      expect(response).toEqual(correctResponse)
+    })
+    it('should create a valid cim_OpaqueManagementDataService ImportFromURI wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_OpaqueManagementDataService/ImportFromURI</a:Action><a:To>/wsman</a:To><w:ResourceURI>${resourceUri}</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:ImportFromURI_INPUT ${inputNamespace}><h:ImportURI>https://example.com/blob</h:ImportURI><h:Length>512</h:Length><h:Offset>0</h:Offset><h:Truncate>false</h:Truncate>${dataReference}</h:ImportFromURI_INPUT></Body></Envelope>`
+      const response = cimClass.OpaqueManagementDataService.ImportFromURI({
+        Handle: handle,
+        ImportURI: 'https://example.com/blob',
+        Length: 512,
+        Offset: 0,
+        Truncate: false
+      })
       expect(response).toEqual(correctResponse)
     })
   })

@@ -439,4 +439,77 @@ export namespace Models {
     Algorithm?: string
     Protocol?: string
   }
+
+  export type OpaqueManagementDataService = Service
+
+  // Method inputs for CIM_OpaqueManagementDataService. References to other CIM
+  // instances (the data block, identities, storage extents) are passed as the
+  // value of the relevant Endpoint Reference's InstanceID/DeviceID selector.
+  export namespace OpaqueManagementDataService {
+    /** Input for the Read method - reads octets from an opaque management data block. */
+    export interface Read {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block to read from
+      Length?: number // uint64 - number of octets to read. Omit to read to the end of the block
+      Offset?: number // uint64 - byte offset within the block at which to begin reading. Defaults to 0
+      LockToken?: string // OctetString lock token returned from a prior Lock call
+    }
+
+    /** Input for the Write method - writes octets to an opaque management data block. */
+    export interface Write {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block to write to
+      Data: string // OctetString (base64) data to write into the block
+      Length?: number // uint64 - number of octets to write. Defaults to the length of Data
+      Offset?: number // uint64 - byte offset within the block at which to begin writing. Defaults to 0
+      Truncate?: boolean // When true, the block is truncated to Offset + Length after the write
+      LockToken?: string // OctetString lock token returned from a prior Lock call
+    }
+
+    /** Input for the Create method - allocates a new opaque management data block. */
+    export interface Create {
+      DataFormat?: string // A free-form string describing the format of the data to be stored
+      ElementName?: string // A user-friendly name for the new data block
+      MaxSize?: number // uint64 - the maximum size, in octets, the new block is permitted to grow to
+      BasedOnExtent?: string // DeviceID of the CIM_StorageExtent the block should be allocated from
+      Owner?: string // InstanceID of the CIM_Identity that will own the new block
+    }
+
+    /** Input for the Lock method - acquires or releases a lock on a data block. */
+    export interface Lock {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block to lock or unlock
+      Lock: boolean // true to acquire the lock, false to release it
+      LockToken?: string // OctetString lock token returned from a prior Lock call (required to release)
+    }
+
+    /** Input for the AssignAccess method - grants an identity access to a data block. */
+    export interface AssignAccess {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block
+      Identity: string // InstanceID of the CIM_Identity being granted access
+      Activities: Types.OpaqueManagementDataService.Activities[] // ValueMap={5, 6} Values={Read, Write}
+    }
+
+    /** Input for the ReassignOwnership method - transfers ownership of a data block. */
+    export interface ReassignOwnership {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block
+      NewOwner: string // InstanceID of the CIM_Identity that will become the new owner
+    }
+
+    /** Input for the ExportToURI method - exports a data block to an external URI. */
+    export interface ExportToURI {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block to export
+      ExportURI: string // The URI the block contents are exported to
+      Length?: number // uint64 - number of octets to export. Omit to export to the end of the block
+      Offset?: number // uint64 - byte offset within the block at which to begin exporting. Defaults to 0
+      LockToken?: string // OctetString lock token returned from a prior Lock call
+    }
+
+    /** Input for the ImportFromURI method - imports data from an external URI into a block. */
+    export interface ImportFromURI {
+      Handle: string // InstanceID of the CIM_OpaqueManagementData block to import into
+      ImportURI: string // The URI the block contents are imported from
+      Length?: number // uint64 - number of octets to import
+      Offset?: number // uint64 - byte offset within the block at which to begin importing. Defaults to 0
+      Truncate?: boolean // When true, the block is truncated to Offset + Length after the import
+      LockToken?: string // OctetString lock token returned from a prior Lock call
+    }
+  }
 }

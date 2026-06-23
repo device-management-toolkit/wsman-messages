@@ -27,5 +27,6 @@ export enum Classes {
   WIFI_ENDPOINT = 'CIM_WiFiEndpoint',
   CONCRETE_DEPENDENCY = 'CIM_ConcreteDependency',
   CREDENTIAL_CONTEXT = 'CIM_CredentialContext',
-  OPAQUE_MANAGEMENT_DATA = 'CIM_OpaqueManagementData'
+  OPAQUE_MANAGEMENT_DATA = 'CIM_OpaqueManagementData',
+  OPAQUE_MANAGEMENT_DATA_SERVICE = 'CIM_OpaqueManagementDataService'
 }
