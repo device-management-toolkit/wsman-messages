@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.0.3...v6.1.0) (2026-06-24)
+
+
+### Features
+
+* **amt:** add UpdateWiFiSettings to WiFiPortConfigurationService ([#1299](https://github.com/device-management-toolkit/wsman-messages/issues/1299)) ([b6557d5](https://github.com/device-management-toolkit/wsman-messages/commit/b6557d5d6f3dce04a5d6babb9160fa4b7b497b6e)), closes [#1298](https://github.com/device-management-toolkit/wsman-messages/issues/1298)
+
 ## [6.0.3](https://github.com/device-management-toolkit/wsman-messages/compare/v6.0.2...v6.0.3) (2026-06-03)
 
 ## [6.0.2](https://github.com/device-management-toolkit/wsman-messages/compare/v6.0.1...v6.0.2) (2026-05-20)
