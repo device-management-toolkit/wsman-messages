@@ -734,79 +734,24 @@ class WiFiPortConfigurationService extends Base {
     ieee8021xSettingsInput?: CIM.Models.IEEE8021xSettings,
     clientCredential?: string,
     caCredential?: string
-  ): string => {
-    const header = this.wsmanMessageCreator.createHeader(
+  ): string =>
+    this.buildWiFiSettingsXml(
       Actions.ADD_WIFI_SETTINGS,
-      Classes.WIFI_PORT_CONFIGURATION_SERVICE
-    )
-    const dataArray: object[] = []
-    const wifiEndpointObject = {
-      WiFiEndpoint: {
-        Address: '/wsman',
-        ReferenceParameters: {
-          ResourceURI: `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${CIM.Classes.WIFI_ENDPOINT}`,
-          SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody(selector)
-        }
-      }
-    }
-    dataArray.push(wifiEndpointObject)
-    if (wifiEndpointSettings) {
-      // HANDLE SPECIAL CHARACTERS FOR XML
-      wifiEndpointSettings.PSKPassPhrase = wifiEndpointSettings.PSKPassPhrase?.replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&apos;')
-      const wifiEndpointSettingInputObject = {
-        WiFiEndpointSettingsInput: wifiEndpointSettings,
-        namespace: 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_WiFiEndpointSettings'
-      }
-      dataArray.push(wifiEndpointSettingInputObject)
-    }
-    if (ieee8021xSettingsInput) {
-      const ieee8021xSettingsInputObject = {
-        IEEE8021xSettingsInput: ieee8021xSettingsInput,
-        namespace: 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_IEEE8021xSettings'
-      }
-      dataArray.push(ieee8021xSettingsInputObject)
-    }
-    if (clientCredential) {
-      const clientCredentialObject = {
-        ClientCredential: {
-          Address: 'default',
+      Methods.ADD_WIFI_SETTINGS,
+      {
+        WiFiEndpoint: {
+          Address: '/wsman',
           ReferenceParameters: {
-            ResourceURI: 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyCertificate',
-            SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody({
-              name: 'InstanceID',
-              value: clientCredential
-            })
+            ResourceURI: `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${CIM.Classes.WIFI_ENDPOINT}`,
+            SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody(selector)
           }
         }
-      }
-      dataArray.push(clientCredentialObject)
-    }
-    if (caCredential) {
-      const caCredentialObject = {
-        CACredential: {
-          Address: 'default',
-          ReferenceParameters: {
-            ResourceURI: 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyCertificate',
-            SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody({
-              name: 'InstanceID',
-              value: caCredential
-            })
-          }
-        }
-      }
-      dataArray.push(caCredentialObject)
-    }
-    const body = this.wsmanMessageCreator.createBody(
-      Methods.ADD_WIFI_SETTINGS + '_INPUT',
-      Classes.WIFI_PORT_CONFIGURATION_SERVICE,
-      dataArray
+      },
+      wifiEndpointSettings,
+      ieee8021xSettingsInput,
+      clientCredential,
+      caCredential
     )
-    return this.wsmanMessageCreator.createXml(header, body)
-  }
 
   /**
    * Atomically updates the referenced instance of CIM_WifiEndpointSettings from the embedded
@@ -823,25 +768,52 @@ class WiFiPortConfigurationService extends Base {
     ieee8021xSettingsInput?: CIM.Models.IEEE8021xSettings,
     clientCredential?: string,
     caCredential?: string
-  ): string => {
-    const header = this.wsmanMessageCreator.createHeader(
+  ): string =>
+    this.buildWiFiSettingsXml(
       Actions.UPDATE_WIFI_SETTINGS,
-      Classes.WIFI_PORT_CONFIGURATION_SERVICE
-    )
-    const dataArray: object[] = []
-    const wifiEndpointSettingsRefObject = {
-      WiFiEndpointSettings: {
-        Address: '/wsman',
-        ReferenceParameters: {
-          ResourceURI: `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${CIM.Classes.WIFI_ENDPOINT_SETTINGS}`,
-          SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody({
-            name: 'InstanceID',
-            value: wifiEndpointSettings?.InstanceID
-          })
+      Methods.UPDATE_WIFI_SETTINGS,
+      {
+        WiFiEndpointSettings: {
+          Address: '/wsman',
+          ReferenceParameters: {
+            ResourceURI: `http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/${CIM.Classes.WIFI_ENDPOINT_SETTINGS}`,
+            SelectorSet: this.wsmanMessageCreator.createSelectorObjectForBody({
+              name: 'InstanceID',
+              value: wifiEndpointSettings?.InstanceID
+            })
+          }
         }
-      }
-    }
-    dataArray.push(wifiEndpointSettingsRefObject)
+      },
+      wifiEndpointSettings,
+      ieee8021xSettingsInput,
+      clientCredential,
+      caCredential
+    )
+
+  /**
+   * Shared body assembly for AddWiFiSettings / UpdateWiFiSettings. Both messages differ only in the
+   * SOAP action, the method element name, and the leading reference object; the embedded settings input
+   * and optional 802.1x / credential blocks are identical and built here in their required wire order.
+   * @param action SOAP action URI for the message.
+   * @param method Method element name (the `_INPUT` suffix is appended).
+   * @param leadingRef The leading reference object pushed first into the body (WiFiEndpoint or WiFiEndpointSettings).
+   * @param wifiEndpointSettings WiFiEndpointSettings Object.
+   * @param ieee8021xSettingsInput Optional IEEE8021xSettings Object.
+   * @param clientCredential Optional InstanceID of the AMT_PublicKeyCertificate client certificate.
+   * @param caCredential Optional InstanceID of the AMT_PublicKeyCertificate CA certificate.
+   * @returns string
+   */
+  private readonly buildWiFiSettingsXml = (
+    action: Actions,
+    method: Methods,
+    leadingRef: object,
+    wifiEndpointSettings: CIM.Models.WiFiEndpointSettings,
+    ieee8021xSettingsInput?: CIM.Models.IEEE8021xSettings,
+    clientCredential?: string,
+    caCredential?: string
+  ): string => {
+    const header = this.wsmanMessageCreator.createHeader(action, Classes.WIFI_PORT_CONFIGURATION_SERVICE)
+    const dataArray: object[] = [leadingRef]
     if (wifiEndpointSettings) {
       // HANDLE SPECIAL CHARACTERS FOR XML
       wifiEndpointSettings.PSKPassPhrase = wifiEndpointSettings.PSKPassPhrase?.replace(/&/g, '&amp;')
@@ -849,21 +821,19 @@ class WiFiPortConfigurationService extends Base {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&apos;')
-      const wifiEndpointSettingInputObject = {
+      dataArray.push({
         WiFiEndpointSettingsInput: wifiEndpointSettings,
         namespace: 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_WiFiEndpointSettings'
-      }
-      dataArray.push(wifiEndpointSettingInputObject)
+      })
     }
     if (ieee8021xSettingsInput) {
-      const ieee8021xSettingsInputObject = {
+      dataArray.push({
         IEEE8021xSettingsInput: ieee8021xSettingsInput,
         namespace: 'http://schemas.dmtf.org/wbem/wscim/1/cim-schema/2/CIM_IEEE8021xSettings'
-      }
-      dataArray.push(ieee8021xSettingsInputObject)
+      })
     }
     if (clientCredential) {
-      const clientCredentialObject = {
+      dataArray.push({
         ClientCredential: {
           Address: 'default',
           ReferenceParameters: {
@@ -874,11 +844,10 @@ class WiFiPortConfigurationService extends Base {
             })
           }
         }
-      }
-      dataArray.push(clientCredentialObject)
+      })
     }
     if (caCredential) {
-      const caCredentialObject = {
+      dataArray.push({
         CACredential: {
           Address: 'default',
           ReferenceParameters: {
@@ -889,11 +858,10 @@ class WiFiPortConfigurationService extends Base {
             })
           }
         }
-      }
-      dataArray.push(caCredentialObject)
+      })
     }
     const body = this.wsmanMessageCreator.createBody(
-      Methods.UPDATE_WIFI_SETTINGS + '_INPUT',
+      method + '_INPUT',
       Classes.WIFI_PORT_CONFIGURATION_SERVICE,
       dataArray
     )
