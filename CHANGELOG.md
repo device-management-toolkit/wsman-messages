@@ -1,3 +1,5 @@
+## [6.1.1](https://github.com/device-management-toolkit/wsman-messages/compare/v6.1.0...v6.1.1) (2026-07-01)
+
 # [6.1.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.0.3...v6.1.0) (2026-06-24)
 
 
