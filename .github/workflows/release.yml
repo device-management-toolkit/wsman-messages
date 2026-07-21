@@ -47,9 +47,11 @@ jobs:
 
       - name: Publish to @open-amt-cloud-toolkit
         if: steps.semantic.outputs.new_release_published == 'true'
+        env:
+          NEW_RELEASE_VERSION: ${{ steps.semantic.outputs.new_release_version }}
         run: |
-          echo "Publishing @open-amt-cloud-toolkit/wsman-messages@${{ steps.semantic.outputs.new_release_version }}"
+          echo "Publishing @open-amt-cloud-toolkit/wsman-messages@$NEW_RELEASE_VERSION"
           sed -i 's/"@device-management-toolkit\/wsman-messages"/"@open-amt-cloud-toolkit\/wsman-messages"/' dist/package.json
-          sed -i 's/"version": "[^"]*"/"version": "${{ steps.semantic.outputs.new_release_version }}"/' dist/package.json
+          sed -i "s/\"version\": \"[^\"]*\"/\"version\": \"$NEW_RELEASE_VERSION\"/" dist/package.json
           cd dist
           npm publish
