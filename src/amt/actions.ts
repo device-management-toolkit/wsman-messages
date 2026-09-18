@@ -22,6 +22,7 @@ export enum Actions {
   ADD_USER_ACL_ENTRY_EX = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AuthorizationService/AddUserAclEntryEx',
   GET_LOW_ACCURACY_TIME_SYNCH = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService/GetLowAccuracyTimeSynch',
   SET_HIGH_ACCURACY_TIME_SYNCH = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService/SetHighAccuracyTimeSynch',
+  ENABLE_LOCAL_TIME_SYNC = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService/EnableLocalTimeSync',
   ADD_WIFI_SETTINGS = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_WiFiPortConfigurationService/AddWiFiSettings',
   UPDATE_WIFI_SETTINGS = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_WiFiPortConfigurationService/UpdateWiFiSettings',
   ADD_ALARM = 'http://intel.com/wbem/wscim/1/amt-schema/1/AMT_AlarmClockService/AddAlarm',

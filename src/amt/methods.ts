@@ -25,6 +25,7 @@ export enum Methods {
   SET_ADMIN_ACL_ENTRY_EX = 'SetAdminAclEntryEx',
   GET_LOW_ACCURACY_TIME_SYNCH = 'GetLowAccuracyTimeSynch',
   SET_HIGH_ACCURACY_TIME_SYNCH = 'SetHighAccuracyTimeSynch',
+  ENABLE_LOCAL_TIME_SYNC = 'EnableLocalTimeSync',
   GENERATE_KEY_PAIR = 'GenerateKeyPair',
   ADD_WIFI_SETTINGS = 'AddWiFiSettings',
   UPDATE_WIFI_SETTINGS = 'UpdateWiFiSettings',
