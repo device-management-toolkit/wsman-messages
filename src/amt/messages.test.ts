@@ -672,6 +672,15 @@ describe('AMT Tests', () => {
       const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
       expect(response).toEqual(correctResponse)
     })
+    it('should return a valid 3072-bit amt_PublicKeyManagementService GenerateKeyPair wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService/GenerateKeyPair</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:GenerateKeyPair_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService"><h:KeyAlgorithm>0</h:KeyAlgorithm><h:KeyLength>3072</h:KeyLength></h:GenerateKeyPair_INPUT></Body></Envelope>`
+      const keyPairParameters: Models.GenerateKeyPairParameters = {
+        KeyAlgorithm: 0,
+        KeyLength: 3072
+      }
+      const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
+      expect(response).toEqual(correctResponse)
+    })
     it('should return a valid amt_PublicKeyManagementService AddCertificate wsman message', () => {
       const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService/AddCertificate</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:AddCertificate_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService"><h:CertificateBlob>${trustedRootCert}</h:CertificateBlob></h:AddCertificate_INPUT></Body></Envelope>`
       const response = amtClass.PublicKeyManagementService.AddCertificate({ CertificateBlob: trustedRootCert })

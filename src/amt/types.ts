@@ -134,9 +134,9 @@ export namespace Types {
      */
     export type KeyAlgorithm = 0
     /**
-     * The only valid key length is 2048 bits
+     * 2048 = legacy RSA key length | 3072 = AMT 22+ RSA key length
      */
-    export type KeyLength = 2048
+    export type KeyLength = 2048 | 3072
   }
 
   export namespace GeneratePKCS10RequestEx {

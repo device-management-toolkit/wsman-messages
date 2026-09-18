@@ -18,9 +18,9 @@ export namespace Types {
      */
     export type AdminPassEncryptionType = 0 | 1 | 2
     /**
-     * None:0 | Other:1 | RSA_SHA-2_256:2
+     * None:0 | Other:1 | RSA_SHA-2_256:2 | RSA_SHA-2_384:3
      */
-    export type SigningAlgorithm = 0 | 1 | 2
+    export type SigningAlgorithm = 0 | 1 | 2 | 3
   }
   export namespace OptInService {
     /**
