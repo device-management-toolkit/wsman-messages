@@ -672,11 +672,14 @@ describe('AMT Tests', () => {
       const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
       expect(response).toEqual(correctResponse)
     })
-    it('should return a valid 3072-bit amt_PublicKeyManagementService GenerateKeyPair wsman message', () => {
-      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService/GenerateKeyPair</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:GenerateKeyPair_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService"><h:KeyAlgorithm>0</h:KeyAlgorithm><h:KeyLength>3072</h:KeyLength></h:GenerateKeyPair_INPUT></Body></Envelope>`
+    it('should return a valid ECC-384 amt_PublicKeyManagementService GenerateKeyPair wsman message', () => {
+      // KeyAlgorithm ValueMap={0,1} Values={RSA-2K, ECC-384}. RSA-3072 is not a
+      // supported key size on any AMT generation — the firmware answers 2066
+      // PT_STATUS_UNSUPPORTED and returns no key pair.
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService/GenerateKeyPair</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:GenerateKeyPair_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService"><h:KeyAlgorithm>1</h:KeyAlgorithm><h:KeyLength>384</h:KeyLength></h:GenerateKeyPair_INPUT></Body></Envelope>`
       const keyPairParameters: Models.GenerateKeyPairParameters = {
-        KeyAlgorithm: 0,
-        KeyLength: 3072
+        KeyAlgorithm: 1,
+        KeyLength: 384
       }
       const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
       expect(response).toEqual(correctResponse)
@@ -1022,6 +1025,34 @@ describe('AMT Tests', () => {
       const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Put</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TLSCredentialContext</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:AMT_TLSCredentialContext xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TLSCredentialContext"><h:ElementInContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyCertificate</w:ResourceURI><w:SelectorSet><w:Selector Name="InstanceID">Intel(r) AMT Certificate: Handle 1</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementInContext><h:ElementProvidingContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TLSProtocolEndpointCollection</w:ResourceURI><w:SelectorSet><w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementProvidingContext></h:AMT_TLSCredentialContext></Body></Envelope>`
       const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle 1')
       expect(response).toEqual(correctResponse)
+    })
+    it('should echo the existing ElementProvidingContext on PUT', () => {
+      // A Put carries no header SelectorSet, so AMT identifies the instance from
+      // the body. The device reports "TLSProtocolEndpoint Instances Collection"
+      // (with a space) and an anonymous address; sending the Create-style form
+      // instead is rejected with HTTP 500 on AMT 22.
+      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle: 2', tlsCredentialContext)
+      expect(response).toContain(
+        '<h:ElementProvidingContext><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address>'
+      )
+      expect(response).toContain('<w:Selector Name="ElementName">TLSProtocolEndpoint Instances Collection</w:Selector>')
+      expect(response).not.toContain('TLSProtocolEndpointInstances Collection')
+      // Only the bound certificate changes.
+      expect(response).toContain('<w:Selector Name="InstanceID">Intel(r) AMT Certificate: Handle: 2</w:Selector>')
+    })
+    it('should echo the existing ElementInContext address on PUT', () => {
+      // Both endpoint references must come back as the device reported them.
+      // AMT uses the WS-Addressing anonymous URI for both; the literal "/wsman"
+      // is not a valid absolute URI and only survives as a no-instance fallback.
+      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle: 2', tlsCredentialContext)
+      expect(response).toContain(
+        '<h:ElementInContext><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address>'
+      )
+      expect(response).not.toContain('<a:Address>/wsman</a:Address>')
+    })
+    it('should fall back to the default ElementProvidingContext when none is supplied', () => {
+      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle 1', undefined)
+      expect(response).toContain('<w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector>')
     })
     it('should return a valid TLSCredentialContext ENUMERATE wsman message', () => {
       const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Enumerate</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TLSCredentialContext</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Enumerate xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration" /></Body></Envelope>`

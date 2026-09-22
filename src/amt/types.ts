@@ -130,13 +130,19 @@ export namespace Types {
 
   export namespace GenerateKeyPairParameters {
     /**
-     * 0 = RSA
+     * 0 = RSA-2K | 1 = ECC-384
+     *
+     * Per the Intel AMT WS-Management class reference for
+     * AMT_PublicKeyManagementService.GenerateKeyPair.
      */
-    export type KeyAlgorithm = 0
+    export type KeyAlgorithm = 0 | 1
     /**
-     * 2048 = legacy RSA key length | 3072 = AMT 22+ RSA key length
+     * 384 = the only supported ECC key size | 2048 = the only supported RSA key size
+     *
+     * The firmware rejects any other length with 2066 (PT_STATUS_UNSUPPORTED);
+     * RSA-3072 in particular is NOT supported on any AMT generation, including 22.
      */
-    export type KeyLength = 2048 | 3072
+    export type KeyLength = 384 | 2048
   }
 
   export namespace GeneratePKCS10RequestEx {

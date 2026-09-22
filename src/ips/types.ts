@@ -19,6 +19,16 @@ export namespace Types {
     export type AdminPassEncryptionType = 0 | 1 | 2
     /**
      * None:0 | Other:1 | RSA_SHA-2_256:2 | RSA_SHA-2_384:3
+     *
+     * Values 0-2 are the published ValueMap for AdminSetup / UpgradeClientToAdmin
+     * (`ValueMap={0, 1, 2, ..}`, trailing `..` being DMTF Reserved).
+     *
+     * Value 3 is NOT in the published class reference. It is included because the
+     * firmware accepts it: UpgradeClientToAdmin with SigningAlgorithm=3 and a
+     * SHA-384-signed provisioning certificate returned ReturnValue 0 on both AMT
+     * 21.0.6 and AMT 22.0.0 (verified 2026-09-21). Callers must pick this based
+     * on the provisioning certificate's hash algorithm, not on the AMT version —
+     * AMT 21 needs 3 too when its provisioning cert is SHA-384.
      */
     export type SigningAlgorithm = 0 | 1 | 2 | 3
   }
