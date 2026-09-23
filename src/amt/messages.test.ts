@@ -1033,34 +1033,6 @@ describe('AMT Tests', () => {
       const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle 1')
       expect(response).toEqual(correctResponse)
     })
-    it('should echo the existing ElementProvidingContext on PUT', () => {
-      // A Put carries no header SelectorSet, so AMT identifies the instance from
-      // the body. The device reports "TLSProtocolEndpoint Instances Collection"
-      // (with a space) and an anonymous address; sending the Create-style form
-      // instead is rejected with HTTP 500 on AMT 22.
-      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle: 2', tlsCredentialContext)
-      expect(response).toContain(
-        '<h:ElementProvidingContext><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address>'
-      )
-      expect(response).toContain('<w:Selector Name="ElementName">TLSProtocolEndpoint Instances Collection</w:Selector>')
-      expect(response).not.toContain('TLSProtocolEndpointInstances Collection')
-      // Only the bound certificate changes.
-      expect(response).toContain('<w:Selector Name="InstanceID">Intel(r) AMT Certificate: Handle: 2</w:Selector>')
-    })
-    it('should echo the existing ElementInContext address on PUT', () => {
-      // Both endpoint references must come back as the device reported them.
-      // AMT uses the WS-Addressing anonymous URI for both; the literal "/wsman"
-      // is not a valid absolute URI and only survives as a no-instance fallback.
-      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle: 2', tlsCredentialContext)
-      expect(response).toContain(
-        '<h:ElementInContext><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address>'
-      )
-      expect(response).not.toContain('<a:Address>/wsman</a:Address>')
-    })
-    it('should fall back to the default ElementProvidingContext when none is supplied', () => {
-      const response = amtClass.TLSCredentialContext.Put('Intel(r) AMT Certificate: Handle 1', undefined)
-      expect(response).toContain('<w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector>')
-    })
     it('should return a valid TLSCredentialContext ENUMERATE wsman message', () => {
       const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/enumeration/Enumerate</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TLSCredentialContext</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><Enumerate xmlns="http://schemas.xmlsoap.org/ws/2004/09/enumeration" /></Body></Envelope>`
       const response = amtClass.TLSCredentialContext.Enumerate()

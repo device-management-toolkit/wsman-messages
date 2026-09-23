@@ -104,8 +104,7 @@ class AuthorizationService extends Base {
     if (!startIndex) startIndex = 1
     const header: string = this.wsmanMessageCreator.createHeader(Actions.ENUMERATE_USER_ACL_ENTRIES, this.className)
     const body: string = this.wsmanMessageCreator.createBody('EnumerateUserAclEntries_INPUT', this.className, [
-      { StartIndex: startIndex }
-    ])
+      { StartIndex: startIndex }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -117,8 +116,7 @@ class AuthorizationService extends Base {
   GetAclEnabledState = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.GET_ACL_ENABLED_STATE, this.className)
     const body: string = this.wsmanMessageCreator.createBody('GetAclEnabledState_INPUT', this.className, [
-      { Handle: handle }
-    ])
+      { Handle: handle }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -160,8 +158,7 @@ class AuthorizationService extends Base {
   GetUserAclEntryEx = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.GET_USER_ACL_ENTRY_EX, this.className)
     const body: string = this.wsmanMessageCreator.createBody('GetUserAclEntryEx_INPUT', this.className, [
-      { Handle: handle }
-    ])
+      { Handle: handle }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -173,8 +170,7 @@ class AuthorizationService extends Base {
   RemoveUserAclEntry = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.REMOVE_USER_ACL_ENTRY, this.className)
     const body: string = this.wsmanMessageCreator.createBody('RemoveUserAclEntry_INPUT', this.className, [
-      { Handle: handle }
-    ])
+      { Handle: handle }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -187,8 +183,7 @@ class AuthorizationService extends Base {
   SetAclEnabledState = (handle: number, enabled: boolean): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.SET_ACL_ENABLED_STATE, this.className)
     const body: string = this.wsmanMessageCreator.createBody('SetAclEnabledState_INPUT', this.className, [
-      { Handle: handle, Enabled: enabled }
-    ])
+      { Handle: handle, Enabled: enabled }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -293,8 +288,7 @@ class EthernetPortSettings extends Base {
     const header = this.wsmanMessageCreator.createHeader(Actions.SET_LINK_PREFERENCE, this.className, selector)
     const body = this.wsmanMessageCreator.createBody('SetLinkPreference_INPUT', this.className, [
       { LinkPreference: linkPreference },
-      { Timeout: timeout }
-    ])
+      { Timeout: timeout }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }
@@ -364,8 +358,7 @@ class MessageLog extends Base {
     }
     const header = this.wsmanMessageCreator.createHeader(Actions.GET_RECORDS, this.className)
     const body = this.wsmanMessageCreator.createBody('GetRecords_INPUT', this.className, [
-      { IterationIdentifier: identifier, MaxReadRecords: 390 }
-    ])
+      { IterationIdentifier: identifier, MaxReadRecords: 390 }])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -711,43 +704,13 @@ class TLSCredentialContext extends Base {
   }
 
   /**
-   * Updates an instance of TLSCredentialContext, rebinding TLS to a different
-   * certificate.
-   *
-   * Pass `existingContext` — the instance returned by Enumerate/Pull — whenever
-   * one exists. A Put carries no SelectorSet in its header, so the firmware
-   * identifies the target instance from the body alone; the body must therefore
-   * echo the ElementProvidingContext exactly as the device reported it, with only
-   * ElementInContext changed to the new certificate handle.
-   *
-   * This matters because the device reports the endpoint collection as
-   * "TLSProtocolEndpoint Instances Collection" (with a space) while the Create
-   * path uses "TLSProtocolEndpointInstances Collection" (no space). AMT 21
-   * tolerates the mismatched form on Put; AMT 22 rejects it with HTTP 500.
-   *
-   * The same reasoning applies to the endpoint reference Address. AMT reports
-   * both references with the WS-Addressing anonymous URI, and MeshCommander —
-   * whose Put AMT accepts — clones the enumerated instance wholesale and changes
-   * only the certificate handle, so it echoes that URI back. The literal
-   * "/wsman" below is not a valid absolute URI and is only a fallback for the
-   * no-existing-instance case, where Create's shape is all there is to copy.
-   *
-   * @param certHandle Certificate handle to bind.
-   * @param existingContext The AMT_TLSCredentialContext instance being modified.
+   * Updates an instance of TLSCredentialContext.
+   * @param certHandle Certificate handle.
    * @returns string
    */
-  Put = (certHandle: string, existingContext?: Models.TLSCredentialContext): string => {
+  Put = (certHandle: string): string => {
     const header = this.wsmanMessageCreator.createHeader(BaseActions.PUT, Classes.TLS_CREDENTIAL_CONTEXT)
-    const providing = existingContext?.ElementProvidingContext
-    const providingAddress = providing?.Address ?? '/wsman'
-    const inContextAddress = existingContext?.ElementInContext?.Address ?? '/wsman'
-    const providingResourceUri =
-      providing?.ReferenceParameters?.ResourceURI ??
-      `${this.wsmanMessageCreator.resourceUriBase}AMT_TLSProtocolEndpointCollection`
-    const providingSelector = providing?.ReferenceParameters?.SelectorSet?.Selector
-    const providingSelectorName = providingSelector?.$?.Name ?? 'ElementName'
-    const providingSelectorValue = providingSelector?._ ?? 'TLSProtocolEndpointInstances Collection'
-    const body = `<Body><h:AMT_TLSCredentialContext xmlns:h="${this.wsmanMessageCreator.resourceUriBase}AMT_TLSCredentialContext"><h:ElementInContext><a:Address>${inContextAddress}</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_PublicKeyCertificate</w:ResourceURI><w:SelectorSet><w:Selector Name="InstanceID">${certHandle}</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementInContext><h:ElementProvidingContext><a:Address>${providingAddress}</a:Address><a:ReferenceParameters><w:ResourceURI>${providingResourceUri}</w:ResourceURI><w:SelectorSet><w:Selector Name="${providingSelectorName}">${providingSelectorValue}</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementProvidingContext></h:AMT_TLSCredentialContext></Body>`
+    const body = `<Body><h:AMT_TLSCredentialContext xmlns:h="${this.wsmanMessageCreator.resourceUriBase}AMT_TLSCredentialContext"><h:ElementInContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_PublicKeyCertificate</w:ResourceURI><w:SelectorSet><w:Selector Name="InstanceID">${certHandle}</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementInContext><h:ElementProvidingContext><a:Address>/wsman</a:Address><a:ReferenceParameters><w:ResourceURI>${this.wsmanMessageCreator.resourceUriBase}AMT_TLSProtocolEndpointCollection</w:ResourceURI><w:SelectorSet><w:Selector Name="ElementName">TLSProtocolEndpointInstances Collection</w:Selector></w:SelectorSet></a:ReferenceParameters></h:ElementProvidingContext></h:AMT_TLSCredentialContext></Body>`
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }
