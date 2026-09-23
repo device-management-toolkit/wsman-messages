@@ -1,3 +1,10 @@
+# [6.2.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.1.5...v6.2.0) (2026-09-23)
+
+
+### Features
+
+* **amt:** add EnableLocalTimeSync builder for AMT_TimeSynchronizationService ([85bce8c](https://github.com/device-management-toolkit/wsman-messages/commit/85bce8c5171d7d8ef6344e24e2a24be098ac285a)), closes [device-management-toolkit/rps#2905](https://github.com/device-management-toolkit/rps/issues/2905)
+
 ## [6.1.5](https://github.com/device-management-toolkit/wsman-messages/compare/v6.1.4...v6.1.5) (2026-09-21)
 
 ## [6.1.4](https://github.com/device-management-toolkit/wsman-messages/compare/v6.1.3...v6.1.4) (2026-08-26)
