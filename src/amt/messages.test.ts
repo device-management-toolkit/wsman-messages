@@ -975,6 +975,13 @@ describe('AMT Tests', () => {
       const response = amtClass.TimeSynchronizationService.SetHighAccuracyTimeSynch(1644240911, 1644240943, 1644240943)
       expect(response).toEqual(correctResponse)
     })
+    it('should return a valid amt_TimeSynchronizationService ENABLE_LOCAL_TIME_SYNC wsman message', () => {
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService/EnableLocalTimeSync</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService</w:ResourceURI><a:MessageID>0</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:EnableLocalTimeSync_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_TimeSynchronizationService"><h:Enable>true</h:Enable></h:EnableLocalTimeSync_INPUT></Body></Envelope>`
+      const response = amtClass.TimeSynchronizationService.EnableLocalTimeSync(true)
+      expect(response).toEqual(correctResponse)
+      const disabledResponse = amtClass.TimeSynchronizationService.EnableLocalTimeSync(false)
+      expect(disabledResponse).toContain('<h:Enable>false</h:Enable>')
+    })
   })
   describe('TLSCredentialContext Tests', () => {
     const tlsCredentialContext: Models.TLSCredentialContext = {

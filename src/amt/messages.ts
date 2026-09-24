@@ -670,6 +670,24 @@ class TimeSynchronizationService extends Base {
     )
     return this.wsmanMessageCreator.createXml(header, body)
   }
+
+  /**
+   * Sets the LocalTimeSyncEnabled property, allowing local software (e.g. LMS) to synchronize AMT's clock.
+   * @param enable Determines if a user with LOCAL_SYSTEM_REALM permission can set the time.
+   * @returns string
+   */
+  EnableLocalTimeSync = (enable: boolean): string => {
+    const header: string = this.wsmanMessageCreator.createHeader(
+      Actions.ENABLE_LOCAL_TIME_SYNC,
+      Classes.TIME_SYNCHRONIZATION_SERVICE
+    )
+    const body: string = this.wsmanMessageCreator.createBody(
+      'EnableLocalTimeSync_INPUT',
+      Classes.TIME_SYNCHRONIZATION_SERVICE,
+      [{ Enable: enable }]
+    )
+    return this.wsmanMessageCreator.createXml(header, body)
+  }
 }
 class TLSCredentialContext extends Base {
   className = Classes.TLS_CREDENTIAL_CONTEXT
