@@ -104,7 +104,8 @@ class AuthorizationService extends Base {
     if (!startIndex) startIndex = 1
     const header: string = this.wsmanMessageCreator.createHeader(Actions.ENUMERATE_USER_ACL_ENTRIES, this.className)
     const body: string = this.wsmanMessageCreator.createBody('EnumerateUserAclEntries_INPUT', this.className, [
-      { StartIndex: startIndex }])
+      { StartIndex: startIndex }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -116,7 +117,8 @@ class AuthorizationService extends Base {
   GetAclEnabledState = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.GET_ACL_ENABLED_STATE, this.className)
     const body: string = this.wsmanMessageCreator.createBody('GetAclEnabledState_INPUT', this.className, [
-      { Handle: handle }])
+      { Handle: handle }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -158,7 +160,8 @@ class AuthorizationService extends Base {
   GetUserAclEntryEx = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.GET_USER_ACL_ENTRY_EX, this.className)
     const body: string = this.wsmanMessageCreator.createBody('GetUserAclEntryEx_INPUT', this.className, [
-      { Handle: handle }])
+      { Handle: handle }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -170,7 +173,8 @@ class AuthorizationService extends Base {
   RemoveUserAclEntry = (handle: number): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.REMOVE_USER_ACL_ENTRY, this.className)
     const body: string = this.wsmanMessageCreator.createBody('RemoveUserAclEntry_INPUT', this.className, [
-      { Handle: handle }])
+      { Handle: handle }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -183,7 +187,8 @@ class AuthorizationService extends Base {
   SetAclEnabledState = (handle: number, enabled: boolean): string => {
     const header: string = this.wsmanMessageCreator.createHeader(Actions.SET_ACL_ENABLED_STATE, this.className)
     const body: string = this.wsmanMessageCreator.createBody('SetAclEnabledState_INPUT', this.className, [
-      { Handle: handle, Enabled: enabled }])
+      { Handle: handle, Enabled: enabled }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 
@@ -288,7 +293,8 @@ class EthernetPortSettings extends Base {
     const header = this.wsmanMessageCreator.createHeader(Actions.SET_LINK_PREFERENCE, this.className, selector)
     const body = this.wsmanMessageCreator.createBody('SetLinkPreference_INPUT', this.className, [
       { LinkPreference: linkPreference },
-      { Timeout: timeout }])
+      { Timeout: timeout }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 }
@@ -358,7 +364,8 @@ class MessageLog extends Base {
     }
     const header = this.wsmanMessageCreator.createHeader(Actions.GET_RECORDS, this.className)
     const body = this.wsmanMessageCreator.createBody('GetRecords_INPUT', this.className, [
-      { IterationIdentifier: identifier, MaxReadRecords: 390 }])
+      { IterationIdentifier: identifier, MaxReadRecords: 390 }
+    ])
     return this.wsmanMessageCreator.createXml(header, body)
   }
 

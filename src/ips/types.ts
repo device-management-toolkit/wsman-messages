@@ -26,9 +26,21 @@ export namespace Types {
      * Value 3 is NOT in the published class reference. It is included because the
      * firmware accepts it: UpgradeClientToAdmin with SigningAlgorithm=3 and a
      * SHA-384-signed provisioning certificate returned ReturnValue 0 on both AMT
-     * 21.0.6 and AMT 22.0.0 (verified 2026-09-21). Callers must pick this based
-     * on the provisioning certificate's hash algorithm, not on the AMT version —
-     * AMT 21 needs 3 too when its provisioning cert is SHA-384.
+     * 21.0.6 and AMT 22.0.0 (verified 2026-09-21).
+     *
+     * On AMT 22 it is not optional. Sending 2 with a SHA-256 nonce signature to
+     * an AMT 22.0.0 device returned ReturnValue 1 and the activation fell back to
+     * Unprovision (verified 2026-09-24), so 3 cannot be dropped from this union.
+     *
+     * Choosing it is the caller's problem and needs BOTH inputs. The value has to
+     * match the digest the caller actually signed with, which follows the
+     * provisioning certificate — so it cannot be derived from the AMT version
+     * alone. But SHA-384 verification is also a firmware capability that arrives
+     * at AMT 21: an AMT 20.0.5 device refused UpgradeClientToAdmin with
+     * ReturnValue 3 (PT_STATUS_INVALID_PT_MODE) for byte-for-byte the same
+     * SHA-384 certificate AMT 21.0.6 accepted (verified 2026-09-24) — so it
+     * cannot be derived from the certificate alone either. Use 3 only when the
+     * certificate is SHA-384 and the device is AMT >= 21.
      */
     export type SigningAlgorithm = 0 | 1 | 2 | 3
   }

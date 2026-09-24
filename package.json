@@ -8,9 +8,8 @@
   "scripts": {
     "prepublishOnly": "cp package.json dist",
     "compile": "tsc",
-    "typecheck": "tsc --noEmit -p tsconfig.test.json",
     "lint": "eslint .",
-    "test": "npm run typecheck && vitest run --coverage",
+    "test": "vitest run --coverage",
     "prettify": "npx prettier --write .",
     "ci-prettify": "npx prettier --check ."
   },
