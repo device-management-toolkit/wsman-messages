@@ -641,6 +641,20 @@ describe('AMT Tests', () => {
     })
   })
   describe('PublicKeyManagementService Tests', () => {
+    it('keeps RSA GenerateKeyPair parameters extendable for consumers', () => {
+      interface DownstreamGenerateKeyPairParameters extends Models.GenerateKeyPairParameters {
+        consumerField: string
+      }
+
+      const parameters: DownstreamGenerateKeyPairParameters = {
+        KeyAlgorithm: 0,
+        KeyLength: 2048,
+        consumerField: 'downstream extension'
+      }
+
+      expect(parameters.consumerField).toBe('downstream extension')
+    })
+
     it('should return a valid amt_PublicKeyManagementService Get wsman message', () => {
       const correctResponse = `${xmlHeader}${envelope}http://schemas.xmlsoap.org/ws/2004/09/transfer/Get</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body></Body></Envelope>`
       const response = amtClass.PublicKeyManagementService.Get()
@@ -668,6 +682,18 @@ describe('AMT Tests', () => {
       const keyPairParameters: Models.GenerateKeyPairParameters = {
         KeyAlgorithm: 0,
         KeyLength: 2048
+      }
+      const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
+      expect(response).toEqual(correctResponse)
+    })
+    it('should return a valid ECC-384 amt_PublicKeyManagementService GenerateKeyPair wsman message', () => {
+      // KeyAlgorithm ValueMap={0,1} Values={RSA-2K, ECC-384}. RSA-3072 is not a
+      // supported key size on any AMT generation — the firmware answers 2066
+      // PT_STATUS_UNSUPPORTED and returns no key pair.
+      const correctResponse = `${xmlHeader}${envelope}http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService/GenerateKeyPair</a:Action><a:To>/wsman</a:To><w:ResourceURI>http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService</w:ResourceURI><a:MessageID>${(messageId++).toString()}</a:MessageID><a:ReplyTo><a:Address>http://schemas.xmlsoap.org/ws/2004/08/addressing/role/anonymous</a:Address></a:ReplyTo><w:OperationTimeout>${operationTimeout}</w:OperationTimeout></Header><Body><h:GenerateKeyPair_INPUT xmlns:h="http://intel.com/wbem/wscim/1/amt-schema/1/AMT_PublicKeyManagementService"><h:KeyAlgorithm>1</h:KeyAlgorithm><h:KeyLength>384</h:KeyLength></h:GenerateKeyPair_INPUT></Body></Envelope>`
+      const keyPairParameters: Models.GenerateKeyPairRequest = {
+        KeyAlgorithm: 1,
+        KeyLength: 384
       }
       const response = amtClass.PublicKeyManagementService.GenerateKeyPair(keyPairParameters)
       expect(response).toEqual(correctResponse)

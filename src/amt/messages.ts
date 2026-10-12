@@ -448,7 +448,7 @@ class PublicKeyManagementService extends Base {
    * @param keyPairParameters KeyPairParameters Object
    * @returns string
    */
-  GenerateKeyPair = (keyPairParameters: Models.GenerateKeyPairParameters): string => {
+  GenerateKeyPair = (keyPairParameters: Models.GenerateKeyPairRequest): string => {
     const header = this.wsmanMessageCreator.createHeader(Actions.GENERATE_KEY_PAIR, this.className)
     const body = this.wsmanMessageCreator.createBody('GenerateKeyPair_INPUT', this.className, [keyPairParameters])
     return this.wsmanMessageCreator.createXml(header, body)

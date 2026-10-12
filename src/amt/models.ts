@@ -330,10 +330,17 @@ export namespace Models {
     // If the value of this read-only field is True, the value of AcceptNonSecureConnections can be changed. Note that this class and field can be accessed locally as well as remotely.
   }
 
+  /** RSA-2048 key pair parameters. Kept as an interface for downstream extension compatibility. */
   export interface GenerateKeyPairParameters {
-    KeyAlgorithm: Types.GenerateKeyPairParameters.KeyAlgorithm
-    KeyLength: Types.GenerateKeyPairParameters.KeyLength
+    KeyAlgorithm: 0
+    KeyLength: 2048
   }
+
+  /**
+   * Supported key pair requests. The fields are tied together so unsupported
+   * combinations do not type-check.
+   */
+  export type GenerateKeyPairRequest = GenerateKeyPairParameters | Types.GenerateKeyPairParameters.ECCKeyPair
   export interface AddCertificate {
     CertificateBlob: string
   }
