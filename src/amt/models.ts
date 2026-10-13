@@ -330,17 +330,25 @@ export namespace Models {
     // If the value of this read-only field is True, the value of AcceptNonSecureConnections can be changed. Note that this class and field can be accessed locally as well as remotely.
   }
 
-  /** RSA-2048 key pair parameters. Kept as an interface for downstream extension compatibility. */
-  export interface GenerateKeyPairParameters {
+  /** RSA-2048 - the only RSA key size AMT_PublicKeyManagementService.GenerateKeyPair supports. */
+  export interface RSAKeyPairParameters {
     KeyAlgorithm: 0
     KeyLength: 2048
   }
 
+  /** ECC-384 - the only ECC key size GenerateKeyPair supports, and the key AMT 22 binds. */
+  export interface ECCKeyPairParameters {
+    KeyAlgorithm: 1
+    KeyLength: 384
+  }
+
   /**
-   * Supported key pair requests. The fields are tied together so unsupported
-   * combinations do not type-check.
+   * The algorithm and the length are not independent: the firmware supports
+   * exactly two key pairs. Pairing the fields means a combination the firmware
+   * would reject with 2066 (PT_STATUS_UNSUPPORTED) - RSA-384 or ECC-2048 - does
+   * not type-check.
    */
-  export type GenerateKeyPairRequest = GenerateKeyPairParameters | Types.GenerateKeyPairParameters.ECCKeyPair
+  export type GenerateKeyPairParameters = RSAKeyPairParameters | ECCKeyPairParameters
   export interface AddCertificate {
     CertificateBlob: string
   }

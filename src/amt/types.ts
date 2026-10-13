@@ -141,21 +141,11 @@ export namespace Types {
      *
      * The firmware rejects any other length with 2066 (PT_STATUS_UNSUPPORTED);
      * RSA-3072 in particular is NOT supported on any AMT generation, including 22.
+     *
+     * The two fields are not independent - only RSA-2048 and ECC-384 are valid
+     * together. Models.GenerateKeyPairParameters pairs them.
      */
     export type KeyLength = 384 | 2048
-    /**
-     * The algorithm and the length are not independent: the firmware supports
-     * exactly two key pairs, RSA-2048 and ECC-384. These describe each valid
-     * pair, so a cross-pair such as RSA-384 or ECC-2048 cannot be constructed.
-     */
-    export interface RSAKeyPair {
-      KeyAlgorithm: 0
-      KeyLength: 2048
-    }
-    export interface ECCKeyPair {
-      KeyAlgorithm: 1
-      KeyLength: 384
-    }
   }
 
   export namespace GeneratePKCS10RequestEx {
