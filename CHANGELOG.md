@@ -1,3 +1,10 @@
+# [6.3.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.2.0...v6.3.0) (2026-10-15)
+
+
+### Features
+
+* **amt:** widen the AMT certificate parameter types for AMT 22 ([#1430](https://github.com/device-management-toolkit/wsman-messages/issues/1430)) ([9f30c29](https://github.com/device-management-toolkit/wsman-messages/commit/9f30c293673320086efeed7fde289c6bf2a15dc0))
+
 # [6.2.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.1.5...v6.2.0) (2026-09-23)
 
 
