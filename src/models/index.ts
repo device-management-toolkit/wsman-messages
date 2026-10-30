@@ -4,4 +4,5 @@
  **********************************************************************/
 
 import * as Models from './common.js'
-export { Models }
+import * as ReturnValues from './returnValues.js'
+export { Models, ReturnValues }
