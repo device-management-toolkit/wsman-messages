@@ -29,3 +29,29 @@ const amtClass = new AMT.Message()
 const message = this.amtClass.GeneralSettings.Get()
 console.log(message)
 ```
+
+### Return value descriptions
+
+Method responses (`<Method>_OUTPUT`) carry a numeric `ReturnValue`. The numbers overlap between
+services, so `describeReturnValue` takes the table that applies: `AMT` (PT_STATUS), `CIM` (DMTF method
+return codes), `IPS` (IPS_HostBasedSetupService Setup / AdminSetup / UpgradeClientToAdmin) or `WIFI`
+(AMT_WiFiPortConfigurationService AddWiFiSettings). It turns the raw number into a stable symbolic name
+and a human-readable description so consumers can report failures meaningfully instead of passing the
+number through or dropping it.
+
+```typescript
+import { Common } from '@device-management-toolkit/wsman-messages'
+// or: import { describeReturnValue } from '@device-management-toolkit/wsman-messages/models/returnValues.js'
+
+const result = Common.ReturnValues.describeReturnValue('AMT', 2066)
+// { value: 2066, namespace: 'AMT', name: 'PT_STATUS_UNSUPPORTED',
+//   description: 'Operation or value is not supported by this AMT firmware' }
+
+Common.ReturnValues.describeReturnValue('CIM', 1).name // 'CIM_NOT_SUPPORTED'
+Common.ReturnValues.describeReturnValue('IPS', 3).name // 'IPS_INVALID_PARAMETER' (3 is PT_STATUS_INVALID_PT_MODE for 'AMT')
+Common.ReturnValues.isSuccessReturnValue(0) // true
+```
+
+Unknown values are never dropped: they come back with `name: 'UNKNOWN'` and the raw number in `value`.
+The tables themselves are exported as `Common.ReturnValues.PT_STATUS`, `CIM_RETURN_VALUES`,
+`IPS_HOST_BASED_SETUP_RETURN_VALUES` and `WIFI_PORT_CONFIGURATION_RETURN_VALUES`.
