@@ -29,3 +29,45 @@ const amtClass = new AMT.Message()
 const message = this.amtClass.GeneralSettings.Get()
 console.log(message)
 ```
+
+### Return value descriptions
+
+Method responses (`<Method>_OUTPUT`) carry a numeric `ReturnValue`. The numbers overlap between
+services, and within one service different methods use different value maps, so
+`describeReturnValue` takes the table that documents the method you called:
+
+| Table                     | Methods                                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------------------- |
+| `PT_STATUS`               | Most AMT\_\* services                                                                          |
+| `CIM`                     | DMTF method return codes, including IPS_PowerManagementService.RequestOSPowerSavingStateChange |
+| `HOST_BASED_SETUP`        | IPS_HostBasedSetupService Setup / AdminSetup / UpgradeClientToAdmin                            |
+| `ADD_NEXT_CERT_IN_CHAIN`  | IPS_HostBasedSetupService AddNextCertInChain                                                   |
+| `OPT_IN`                  | IPS_OptInService StartOptIn / CancelOptIn / SendOptInCode                                      |
+| `WIFI_PORT_CONFIGURATION` | AMT_WiFiPortConfigurationService AddWiFiSettings / UpdateWiFiSettings                          |
+
+It turns the raw number into a stable symbolic name and a human-readable description so consumers can
+report failures meaningfully instead of passing the number through or dropping it.
+
+```typescript
+import { Common } from '@device-management-toolkit/wsman-messages'
+// or: import { describeReturnValue } from '@device-management-toolkit/wsman-messages/models/returnValues.js'
+
+const result = Common.ReturnValues.describeReturnValue('PT_STATUS', 2066)
+// { value: 2066, table: 'PT_STATUS', name: 'PT_STATUS_UNSUPPORTED',
+//   description: 'Operation or value is not supported by this AMT firmware' }
+
+Common.ReturnValues.describeReturnValue('CIM', 1).name // 'CIM_NOT_SUPPORTED'
+Common.ReturnValues.describeReturnValue('HOST_BASED_SETUP', 3).name // 'IPS_INVALID_PARAMETER' (3 is PT_STATUS_INVALID_PT_MODE in 'PT_STATUS')
+Common.ReturnValues.describeReturnValue('OPT_IN', 2066).name // 'IPS_OPT_IN_INVALID_CREDENTIALS' (wrong consent code)
+Common.ReturnValues.isSuccessReturnValue(0) // true
+```
+
+Each table holds only the values the AMT SDK documents for those methods. A value the named table
+does not list is never dropped and never decoded with another table: it comes back with
+`name: 'UNKNOWN'` and the raw number in `value`. Only `0` is success; CIM `4096` (job started) is
+not, so a caller that accepts a started job has to check for it. A string `ReturnValue` is accepted
+when it is made of decimal digits.
+
+The tables themselves are exported read-only as `Common.ReturnValues.PT_STATUS`, `CIM_RETURN_VALUES`,
+`IPS_HOST_BASED_SETUP_RETURN_VALUES`, `IPS_ADD_NEXT_CERT_IN_CHAIN_RETURN_VALUES`,
+`IPS_OPT_IN_RETURN_VALUES` and `WIFI_PORT_CONFIGURATION_RETURN_VALUES`.
