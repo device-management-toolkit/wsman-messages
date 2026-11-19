@@ -1,3 +1,10 @@
+# [6.4.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.3.1...v6.4.0) (2026-11-19)
+
+
+### Features
+
+* add return value descriptions for AMT, IPS and CIM method codes ([#1468](https://github.com/device-management-toolkit/wsman-messages/issues/1468)) ([e2402d4](https://github.com/device-management-toolkit/wsman-messages/commit/e2402d49c86885c7ea274741af5175141cde11fd))
+
 ## [6.3.1](https://github.com/device-management-toolkit/wsman-messages/compare/v6.3.0...v6.3.1) (2026-10-23)
 
 # [6.3.0](https://github.com/device-management-toolkit/wsman-messages/compare/v6.2.0...v6.3.0) (2026-10-15)
